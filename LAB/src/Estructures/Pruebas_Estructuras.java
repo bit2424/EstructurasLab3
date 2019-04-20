@@ -142,18 +142,34 @@ class Pruebas_Estructuras {
 		RB_tree_t.add(1,7);
 		RB_tree_t.add(1,8);
 		RB_tree_t.add(1,9);
+        RB_tree_t.add(1,10);
+        RB_tree_t.add(1,11);
+        RB_tree_t.add(2,11);
+        RB_tree_t.add(3,11);
+        RB_tree_t.add(1,12);
 		RB_tree_t.search(3);
 		RB_tree_t.delete(3);
 		RB_tree_t.delete(15);
 		RB_tree_t.delete(5);
 		RB_tree_t.delete(5);
+        RB_tree_t.delete(9);
+        RB_tree_t.delete(7);
+        RB_tree_t.delete(8);
+        RB_tree_t.delete(10);
+        RB_tree_t.delete(11);
+        RB_tree_t.delete(12);
+        RB_tree_t.delete(13);
+
 		RB_tree_t.add(1,65);
 
-		for (int i = 0; i < 500; i++) {
+		for (int i = 0; i < 2000; i++) {
+
+            System.out.println(i+ "Mierda");
 			RB_tree_t.add(1,(int)(Math.random()*1600));
 		}
 
-		for (int i = 0; i < 500; i++) {
+		for (int i = 0; i < 2000; i++) {
+		    System.out.println(i);
 			RB_tree_t.delete((int)(Math.random()*1600));
 		}
 

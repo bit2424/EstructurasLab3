@@ -71,14 +71,14 @@ public class RB_node<Key extends  Comparable<Key>, V>{
     }
 
     public RB_node<Key, V> sucessor(){
-        if(right == null){
+        if(right.getKey() == null){
             return null;
         }
         return right.getMinimum();
     }
 
     public RB_node<Key,V> getMinimum() {
-        if(left == null){
+        if(left.getKey() == null){
             return this;
         }else{
             return left.getMinimum();
