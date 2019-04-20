@@ -1,3 +1,4 @@
+package model;
 import java.util.Date;
 
 public class State {
@@ -31,5 +32,11 @@ public class State {
 		Date dates = new Date(year, month, date, hrs, min);
 		return dates;
 	}
+
+	@Override
+	public String toString() {
+		return "State [date=" + date + ", value=" + value + "]";
+	}
+	
 
 }
