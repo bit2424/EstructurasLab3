@@ -198,14 +198,124 @@ public class BVC implements Serializable{
 			return  overThePrice;
 	}
 
+	public String[] marketsMaximumGrowth(){
 
+		/*for (int I = 0; I < marketCurrencys.size(); I++) {
+			if(){
 
-	public void rangeMaximumGrowth(){
+			}
+		}
 
+		for (int I = 0; I < marketShares.size(); I++) {
+			if()){
+
+			}
+		}*/
+
+		return null;
 	}
 
-	public void marketsMaximumGrowth(){
 
+	public Object[] rangeMaximumGrowth(String name, Date Start , Date Finish ){
+		Market curr_market = null;
+
+		int st = 0;
+		int fin = 0;
+
+		if (name.charAt(0) == '#') {
+			for (int I = 0; I < marketCurrencys.size(); I++) {
+				if(marketCurrencys.get(I).getName().equals(name)){
+					curr_market = marketCurrencys.get(I);
+					st = (int)curr_market.getTree_Date_Currency().search(Start)[1];
+					fin = (int)curr_market.getTree_Date_Currency().search(Finish)[1];
+
+				}
+			}
+		}else {
+			for (int I = 0; I < marketShares.size(); I++) {
+				if(marketShares.get(I).getName().equals(name)){
+					curr_market = marketShares.get(I);
+					st = (int)curr_market.getTree_Date_Shares().search(Start)[1];
+					fin = (int)curr_market.getTree_Date_Shares().search(Finish)[1];
+
+				}
+			}
+		}
+
+		ArrayList<State> temp = curr_market.getStates();
+
+		double slopes[] = new double[temp.size()];
+
+		for (int I = st+1; I<=fin ; I++){
+			slopes[I-1] = temp.get(I).getValue() - temp.get(I-1).getValue();
+		}
+
+		double result[] = FindMaximumSubarraySum(slopes,0,slopes.length-1);
+
+		//En la posición 0 esta la fecha inicial en la  1 la fecha final y en la 2 el crecimiento total
+
+		Object[] ref = {temp.get((int)result[0]).getDate() , temp.get((int)result[1]).getDate() , result[2]};
+
+		return ref;
 	}
+
+	private double[] FindMaximumSubarraySum(double[] slopes, int start, int end) {
+		double solution[] = {start,end, slopes[start]};
+		if(start == end){
+			return solution;
+		}else{
+			int mid = (int)Math.floor((end+start)/2);
+			double[] solutionLeft = FindMaximumSubarraySum(slopes,start,mid);
+
+			double[] solutionRight = FindMaximumSubarraySum(slopes,mid+1,end);
+
+			double[] solutionCross = FindMaximumCrossSubarray(slopes,start,mid,end);
+
+			if(solutionLeft[3] >= solutionRight[3] && solutionLeft[3] >= solutionCross[3] ){
+				solution = solutionLeft;
+			}else if(solutionLeft[3] <= solutionRight[3] && solutionRight[3] >= solutionCross[3]){
+				solution = solutionRight;
+			}else{
+				solution = solutionCross;
+			}
+
+		}
+
+		return solution;
+	}
+
+	private double[] FindMaximumCrossSubarray(double[] slopes, int start, int mid, int end) {
+		double left_sum = Double.MIN_VALUE;
+		double sum = 0;
+		double max_left = 0;
+
+
+		for(int I = mid; I>=end ; I--){
+			sum += slopes[I];
+
+			if(sum > left_sum){
+				left_sum = sum;
+				max_left = I;
+			}
+
+		}
+
+		double right_sum = Double.MIN_VALUE;
+		sum = 0;
+		double max_right = 0;
+
+		for(int I = mid; I<= start ; I++ ){
+			sum += slopes[I];
+			if(sum > right_sum ){
+				right_sum = sum;
+				max_right = I;
+			}
+		}
+
+		double [] ref = {max_left,max_right, left_sum + right_sum};
+		return ref;
+	}
+
+
 
 }
