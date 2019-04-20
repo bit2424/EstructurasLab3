@@ -4,8 +4,10 @@ package Estructures.trees;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Binary_tree<K extends Comparable<K>, V> implements MyBinaryTree<K, V> {
+public class Binary_tree<K extends Comparable<K>, V> implements MyBinaryTree<K, V>, Serializable{
 
+	
+	private static final long serialVersionUID = 1L;
 	protected NodeBinaryTree<K, V> root;
 
 	public Binary_tree() {

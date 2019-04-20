@@ -39,14 +39,14 @@ public class Main extends Application {
 	}
 	
 	public static void serealization() throws  IOException {
-		File file = new File("./Serializacion/serializacion");
+		File file = new File("./LAB/Serializacion/serializacion");
 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
 		oos.writeObject(reception);
 		oos.close();
 	}
 	
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
-		File file = new File("./Serializacion/serializacion");
+		File file = new File("./LAB/Serializacion/serializacion");
 		if(file.exists()) {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
 			reception = (BVC) ois.readObject();

@@ -46,7 +46,7 @@ public class Market implements Serializable {
 		for (int I = 0; I< states.size() ; I++){
 			double [] ref = {states.get(I).getValue(),I};
 			tree_Date_Currency.insert(states.get(I).getDate(), ref);
-			tree_Value_Shares.insert(states.get(I).getValue(),states.get(I).getDate());
+			tree_Value_Currency.insert(states.get(I).getValue(),states.get(I).getDate());
 		}
 	}
 

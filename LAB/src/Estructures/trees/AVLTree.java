@@ -1,9 +1,13 @@
 package Estructures.trees;
 
+import java.io.Serializable;
 
-    public class AVLTree<K extends Comparable<K>, V>  extends Binary_tree <K, V> {
+public class AVLTree<K extends Comparable<K>, V>  extends Binary_tree <K, V> implements  Serializable{
 
-        private int height(NodeBinaryTree<K, V> x) {
+     
+	private static final long serialVersionUID = 1L;
+
+		private int height(NodeBinaryTree<K, V> x) {
             if (x == null)
                 return -1;
             else

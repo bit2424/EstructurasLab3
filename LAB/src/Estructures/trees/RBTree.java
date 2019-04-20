@@ -3,11 +3,16 @@ package Estructures.trees;
 import Estructures.trees.MyRBTree;
 import Estructures.trees.RBNode;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class RBTree<K extends Comparable<K>, V> implements MyRBTree<K,V> {
+public class RBTree<K extends Comparable<K>, V> implements MyRBTree<K,V> , Serializable{
 
-    private RBNode<K, V> root;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private RBNode<K, V> root;
     private RBNode<K, V> nil;
 
     public RBTree() {
