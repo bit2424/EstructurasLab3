@@ -3,9 +3,8 @@ package Estructures;
 import Estructures.linear_Structures.HashMap;
 import Estructures.linear_Structures.Queue;
 import Estructures.linear_Structures.Stack;
-import Estructures.trees.Binary_node;
 import Estructures.trees.Binary_tree;
-import Estructures.trees.RB_Tree;
+import Estructures.trees.RBTree;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -97,28 +96,28 @@ class Pruebas_Estructuras {
 		}
 	}
 	
-	Binary_tree<Integer> tree_t;
+	Binary_tree<Integer,Integer> tree_t;
 	
 	void BSTscene() {
-		tree_t = new Binary_tree<>(new Binary_node<Integer>(null, 5));
+		tree_t = new Binary_tree<>();
 	}
 	
 	@Test
 	void BST_Test() {
 		BSTscene();
-		tree_t.add(5);
-		tree_t.add(15);
-		tree_t.add(3);
-		tree_t.search(3);
-		tree_t.delete(3);
-		tree_t.delete(15);
-		tree_t.delete(5);
-		tree_t.delete(5);
-		tree_t.delete(5);
-		tree_t.add(65);
+		tree_t.insert(5,1);
+		tree_t.insert(1,15);
+		tree_t.insert(1,3);
+		tree_t.search(3,1);
+		tree_t.delete(3,1);
+		tree_t.delete(15,1);
+		tree_t.delete(5,1);
+		tree_t.delete(5,1);
+		tree_t.delete(5,1);
+		tree_t.insert(65,1);
 		
 		for (int i = 0; i < 500; i++) {
-			tree_t.add((int)(Math.random()*1600));
+			tree_t.insert((int)(Math.random()*1600),1);
 		}
 		
 		for (int i = 0; i < 500; i++) {
@@ -127,26 +126,26 @@ class Pruebas_Estructuras {
 		
 	}
 
-	RB_Tree<Integer,Integer> RB_tree_t;
+	RBTree<Integer,Integer> RB_tree_t;
 	private void RB_tree_scene() {
-		RB_tree_t = new RB_Tree<>();
+		RB_tree_t = new RBTree<>();
 	}
 
 	@Test
 	void RB_tree_Test() {
 		RB_tree_scene();
-		RB_tree_t.add(1,5);
-		RB_tree_t.add(1,15);
-		RB_tree_t.add(1,3);
-		RB_tree_t.add(1,6);
-		RB_tree_t.add(1,7);
-		RB_tree_t.add(1,8);
-		RB_tree_t.add(1,9);
-        RB_tree_t.add(1,10);
-        RB_tree_t.add(1,11);
-        RB_tree_t.add(2,11);
-        RB_tree_t.add(3,11);
-        RB_tree_t.add(1,12);
+		RB_tree_t.insert(1,5);
+		RB_tree_t.insert(1,15);
+		RB_tree_t.insert(1,3);
+		RB_tree_t.insert(1,6);
+		RB_tree_t.insert(1,7);
+		RB_tree_t.insert(1,8);
+		RB_tree_t.insert(1,9);
+        RB_tree_t.insert(1,10);
+        RB_tree_t.insert(1,11);
+        RB_tree_t.insert(2,11);
+        RB_tree_t.insert(3,11);
+        RB_tree_t.insert(1,12);
 		RB_tree_t.search(3);
 		RB_tree_t.delete(3);
 		RB_tree_t.delete(15);
@@ -160,16 +159,13 @@ class Pruebas_Estructuras {
         RB_tree_t.delete(12);
         RB_tree_t.delete(13);
 
-		RB_tree_t.add(1,65);
+		RB_tree_t.insert(1,65);
 
 		for (int i = 0; i < 2000; i++) {
-
-            System.out.println(i+ "Mierda");
-			RB_tree_t.add(1,(int)(Math.random()*1600));
+		    RB_tree_t.insert((int)(Math.random()*1600),1);
 		}
 
 		for (int i = 0; i < 2000; i++) {
-		    System.out.println(i);
 			RB_tree_t.delete((int)(Math.random()*1600));
 		}
 
