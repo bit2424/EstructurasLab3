@@ -2,6 +2,15 @@
 package view;
 	
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -29,8 +38,21 @@ public class Main extends Application {
 		return reception;
 	}
 	
-	public static void main(String[] args) {
-		reception = new BVC();
+	public static void serealization() throws  IOException {
+		File file = new File("./Serializacion/serializacion");
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
+		oos.writeObject(reception);
+		oos.close();
+	}
+	
+	public static void main(String[] args) throws IOException, ClassNotFoundException {
+		File file = new File("./Serializacion/serializacion");
+		if(file.exists()) {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+			reception = (BVC) ois.readObject();
+		}
+		else
+			reception = new BVC();
 		launch(args);
 	}
 }

@@ -1,10 +1,13 @@
 package model;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class BVC {
+public class BVC implements Serializable{
 
+	
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Market> marketShares;
 	private ArrayList<Market> marketCurrencys;
 	private Receiver receiver;

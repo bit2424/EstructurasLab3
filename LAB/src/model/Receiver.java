@@ -4,9 +4,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Receiver {
+public class Receiver implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	public Receiver() {
 		// TODO Auto-generated constructor stub

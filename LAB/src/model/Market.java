@@ -1,9 +1,11 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Market {
+public class Market implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private ArrayList<State> states;
 	private char type;
 	private String name;
