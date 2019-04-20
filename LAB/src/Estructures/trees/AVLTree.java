@@ -1,6 +1,8 @@
 package Estructures.trees;
 
+import java.io.Serializable;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 
 public class AVLTree<K extends Comparable<K>, V>  implements MyBinaryTree<K, V>  {
@@ -130,6 +132,16 @@ public class AVLTree<K extends Comparable<K>, V>  implements MyBinaryTree<K, V> 
             y = x;
             if (z.getKey().compareTo(x.getKey()) <= 0)
                 x = x.getLeft();
+=======
+public class AVLTree<K extends Comparable<K>, V>  extends Binary_tree <K, V> implements  Serializable{
+
+     
+	private static final long serialVersionUID = 1L;
+
+		private int height(NodeBinaryTree<K, V> x) {
+            if (x == null)
+                return -1;
+>>>>>>> 5f6aeb8084699541c1744e316279436bbead29a5
             else
                 x = x.getRight();
         }

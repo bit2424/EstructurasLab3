@@ -1,8 +1,12 @@
 package Estructures.trees;
 
-public class RBNode<K extends Comparable<K>, V> {
+import java.io.Serializable;
 
-    private K key;
+public class RBNode<K extends Comparable<K>, V> implements Serializable{
+
+    
+	private static final long serialVersionUID = 1L;
+	private K key;
     private V value;
     private RBNode<K, V> parent;
     private RBNode<K, V> left;
