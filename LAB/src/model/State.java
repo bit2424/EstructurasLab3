@@ -16,15 +16,19 @@ public class State implements Serializable {
 	public Date getDate() {
 		return date;
 	}
+
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
 	public double getValue() {
 		return value;
 	}
+
 	public void setValue(double value) {
 		this.value = value;
 	}
+
 	private Date convertDate(String data) {
 		String q[]=data.split(" ");
 		int year = Integer.parseInt(q[1].split("/")[2]);

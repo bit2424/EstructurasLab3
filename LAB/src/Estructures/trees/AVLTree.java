@@ -1,6 +1,6 @@
 package Estructures.trees;
 
-public class AVL_Tree {
+
     public class AVLTree<K extends Comparable<K>, V>  extends Binary_tree <K, V> {
 
         private int height(NodeBinaryTree<K, V> x) {
@@ -77,4 +77,4 @@ public class AVL_Tree {
         }
 
     }
-}
+

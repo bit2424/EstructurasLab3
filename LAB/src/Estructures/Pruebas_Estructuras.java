@@ -3,6 +3,7 @@ package Estructures;
 import Estructures.linear_Structures.HashMap;
 import Estructures.linear_Structures.Queue;
 import Estructures.linear_Structures.Stack;
+import Estructures.trees.AVLTree;
 import Estructures.trees.Binary_tree;
 import Estructures.trees.RBTree;
 import org.junit.jupiter.api.Test;
@@ -171,6 +172,49 @@ class Pruebas_Estructuras {
 
 	}
 
+    AVLTree<Integer,Integer> AVL_tree_t;
+    private void AVL_tree_scene() {
+        AVL_tree_t = new AVLTree<>();
+    }
 
+    @Test
+    void AVL_tree_Test() {
+        AVL_tree_scene();
+        AVL_tree_t.insert(1,5);
+        AVL_tree_t.insert(1,15);
+        AVL_tree_t.insert(1,3);
+        AVL_tree_t.insert(1,6);
+        AVL_tree_t.insert(1,7);
+        AVL_tree_t.insert(1,8);
+        AVL_tree_t.insert(1,9);
+        AVL_tree_t.insert(1,10);
+        AVL_tree_t.insert(1,11);
+        AVL_tree_t.insert(2,11);
+        AVL_tree_t.insert(3,11);
+        AVL_tree_t.insert(1,12);
+        AVL_tree_t.search(3);
+        AVL_tree_t.delete(3);
+        AVL_tree_t.delete(15);
+        AVL_tree_t.delete(5);
+        AVL_tree_t.delete(5);
+        AVL_tree_t.delete(9);
+        AVL_tree_t.delete(7);
+        AVL_tree_t.delete(8);
+        AVL_tree_t.delete(10);
+        AVL_tree_t.delete(11);
+        AVL_tree_t.delete(12);
+        AVL_tree_t.delete(13);
+
+        AVL_tree_t.insert(1,65);
+
+        for (int i = 0; i < 2000; i++) {
+            AVL_tree_t.insert((int)(Math.random()*1600),1);
+        }
+
+        for (int i = 0; i < 2000; i++) {
+            AVL_tree_t.delete((int)(Math.random()*1600));
+        }
+
+    }
 
 }
