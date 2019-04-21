@@ -4,7 +4,10 @@ import Estructures.trees.AVLTree;
 import Estructures.trees.RBTree;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 
 public class Market {
@@ -20,6 +23,7 @@ public class Market {
 	
 	public Market(ArrayList<State> states, String name) {
 		this.states = states;
+		Collections.reverse(this.states);
 		this.type = name.charAt(0);
 		this.name = name;
 		if(type == '#'){

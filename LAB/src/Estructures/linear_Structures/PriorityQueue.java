@@ -1,24 +1,24 @@
 package Estructures.linear_Structures;
 
-public class PriorityQueue<V extends Comparable<V>> implements MyQueue<V> {
-	Heap<V> elements;
+public class PriorityQueue<K extends Comparable<K>,V> implements MyQueue<K> {
+	Heap<K> elements;
 	
 	public PriorityQueue (boolean Type) {
 		elements = new Heap<>(Type);
 	}
 
 	@Override
-	public void offer(V obj) {
+	public void offer(K obj) {
 		elements.add(obj);
 	}
 
 	@Override
-	public V poll() {
+	public K poll() {
 		return elements.obtain();
 	}
 
 	@Override
-	public V peek() {
+	public K peek() {
 		return elements.getTop();
 	}
 
