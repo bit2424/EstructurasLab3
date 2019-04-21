@@ -38,11 +38,6 @@
                   <Font name="System Bold Italic" size="20.0" />
                </font>
             </Label>
-            <Button layoutX="13.0" layoutY="389.0" mnemonicParsing="false" onAction="#saveData" prefHeight="59.0" prefWidth="180.0" style="-fx-background-color: #ffffff;" text="Guardar cambios">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Button>
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="470.0" prefWidth="455.0" style="-fx-background-color: #000000;">
          <children>
@@ -78,18 +73,18 @@
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
                   </Label>
+                  <TextField fx:id="nameMarketAddPane" layoutX="310.0" layoutY="59.0" prefHeight="25.0" prefWidth="126.0" promptText="Nombre mercado" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="selecPane" layoutY="54.0" prefHeight="448.0" prefWidth="524.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <AnchorPane fx:id="selecPane" layoutX="1.0" layoutY="54.0" prefHeight="448.0" prefWidth="524.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0">
                <children>
                   <Label layoutX="39.0" layoutY="32.0" prefHeight="38.0" prefWidth="337.0" text="Seleccione un mercado para continuar">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="sharesCombo" layoutX="77.0" layoutY="96.0" onAction="#sharesAction" prefHeight="25.0" prefWidth="173.0" promptText="Mercado de acciones" />
-                  <ComboBox fx:id="currencysCombo" layoutX="274.0" layoutY="96.0" onAction="#currencyAction" prefHeight="25.0" prefWidth="173.0" promptText="Mercado de divisas" />
-                  <Button layoutX="227.0" layoutY="256.0" mnemonicParsing="false" onAction="#nextSelecPane" prefHeight="25.0" prefWidth="70.0" text="Siguiente" />
+                  <ComboBox fx:id="sharesCombo" layoutX="77.0" layoutY="96.0" onAction="#sharesAction" prefHeight="25.0" prefWidth="200.0" promptText="Mercados en la base de datos" />
+                  <Button layoutX="341.0" layoutY="96.0" mnemonicParsing="false" onAction="#nextSelecPane" prefHeight="25.0" prefWidth="70.0" text="Siguiente" />
                   <Label fx:id="stateLabel" layoutX="39.0" layoutY="6.0" prefHeight="38.0" prefWidth="393.0" text="Accion">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
@@ -97,7 +92,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="consulPane" layoutY="54.0" prefHeight="448.0" prefWidth="524.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <AnchorPane fx:id="consulPane" layoutY="54.0" prefHeight="448.0" prefWidth="524.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
                   <Label layoutX="39.0" layoutY="32.0" prefHeight="38.0" prefWidth="173.0" text="Consuta precio mas ">
                      <font>
@@ -124,22 +119,12 @@
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="79.0" layoutY="274.0" prefHeight="38.0" prefWidth="86.0" text="Fecha:">
-                     <font>
-                        <Font name="System Bold Italic" size="18.0" />
-                     </font>
-                  </Label>
                   <Label fx:id="priceLabel" layoutX="177.0" layoutY="221.0" prefHeight="38.0" prefWidth="173.0" text="(precio)">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="dateConsulPane" layoutX="177.0" layoutY="272.0" prefHeight="38.0" prefWidth="209.0" text="(dd/mm/yyyy   hh:mm)">
-                     <font>
-                        <Font name="System Bold Italic" size="18.0" />
-                     </font>
-                  </Label>
-                  <DatePicker accessibleRole="BUTTON" cache="true" layoutX="158.0" layoutY="85.0" showWeekNumbers="true" />
+                  <DatePicker fx:id="dateStart" accessibleRole="COMBO_BOX" cache="true" cacheHint="SCALE_AND_ROTATE" depthTest="DISABLE" layoutX="158.0" layoutY="85.0" showWeekNumbers="true" />
                   <Label layoutX="80.0" layoutY="78.0" prefHeight="38.0" prefWidth="95.0" text="Inicio:">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
@@ -150,7 +135,10 @@
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
                   </Label>
-                  <DatePicker accessibleRole="BUTTON" cache="true" layoutX="158.0" layoutY="130.0" showWeekNumbers="true" />
+                  <DatePicker fx:id="dateEnd" accessibleRole="BUTTON" cache="true" layoutX="158.0" layoutY="130.0" showWeekNumbers="true" />
+                  <TextField fx:id="timeStart" layoutX="361.0" layoutY="85.0" prefHeight="25.0" prefWidth="51.0" promptText="hh:mm" />
+                  <TextField fx:id="timeEnd" layoutX="361.0" layoutY="130.0" prefHeight="25.0" prefWidth="51.0" promptText="hh:mm" />
+                  <Button layoutX="442.0" layoutY="130.0" mnemonicParsing="false" onAction="#searchCosulPane" text="Buscar" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="intervalPane" layoutX="10.0" layoutY="64.0" prefHeight="448.0" prefWidth="524.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">

@@ -162,12 +162,12 @@ class Pruebas_Estructuras {
 
 		RB_tree_t.insert(1,65);
 
-		for (int i = 0; i < 2000; i++) {
-		    RB_tree_t.insert((int)(Math.random()*1600),1);
+		for (int i = 0; i < 50000; i++) {
+		    RB_tree_t.insert((int)(Math.random()*10000),1);
 		}
 
-		for (int i = 0; i < 2000; i++) {
-			RB_tree_t.delete((int)(Math.random()*1600));
+		for (int i = 0; i < 50000; i++) {
+			RB_tree_t.delete((int)(Math.random()*10000));
 		}
 
 	}
@@ -180,18 +180,18 @@ class Pruebas_Estructuras {
     @Test
     void AVL_tree_Test() {
         AVL_tree_scene();
-        AVL_tree_t.insert(1,5);
-        AVL_tree_t.insert(1,15);
-        AVL_tree_t.insert(1,3);
-        AVL_tree_t.insert(1,6);
-        AVL_tree_t.insert(1,7);
-        AVL_tree_t.insert(1,8);
-        AVL_tree_t.insert(1,9);
-        AVL_tree_t.insert(1,10);
-        AVL_tree_t.insert(1,11);
-        AVL_tree_t.insert(2,11);
-        AVL_tree_t.insert(3,11);
-        AVL_tree_t.insert(1,12);
+        AVL_tree_t.insert(5,1);
+        AVL_tree_t.insert(15,1);
+        AVL_tree_t.insert(3,1);
+        AVL_tree_t.insert(6,1);
+        AVL_tree_t.insert(7,1);
+        AVL_tree_t.insert(8,1);
+        AVL_tree_t.insert(9,1);
+        AVL_tree_t.insert(10,1);
+        AVL_tree_t.insert(11,1);
+        AVL_tree_t.insert(11,1);
+        AVL_tree_t.insert(11,1);
+        AVL_tree_t.insert(12,1);
         AVL_tree_t.search(3);
         AVL_tree_t.delete(3);
         AVL_tree_t.delete(15);
@@ -207,12 +207,14 @@ class Pruebas_Estructuras {
 
         AVL_tree_t.insert(1,65);
 
-        for (int i = 0; i < 2000; i++) {
-            AVL_tree_t.insert((int)(Math.random()*1600),1);
+        for (int i = 0; i < 50000; i++) {
+            AVL_tree_t.insert((int)(Math.random()*100),1);
+            System.out.println(i);
         }
 
-        for (int i = 0; i < 2000; i++) {
-            AVL_tree_t.delete((int)(Math.random()*1600));
+        for (int i = 0; i < 50000; i++) {
+            AVL_tree_t.delete((int)(Math.random()*100));
+			System.out.println(i);
         }
 
     }

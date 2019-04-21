@@ -1,9 +1,12 @@
 package Estructures.trees;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class AVLTree<K extends Comparable<K>, V>  implements MyBinaryTree<K, V>  {
+public class AVLTree<K extends Comparable<K>, V>  implements MyBinaryTree<K, V>   , Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     protected AVLNode<K, V> root;
 
@@ -255,18 +258,22 @@ public class AVLTree<K extends Comparable<K>, V>  implements MyBinaryTree<K, V> 
         return array;
     }
 
-        private int height(AVLNode<K, V> x ) {
+        private int height(AVLNode<K, V> x ,int keep) {
             if (x == null){
                 return -1;
             }else {
-                x.setlHeight(height(x.getLeft()));
-                x.setrHeight(height(x.getRight()));
-                x.setHeight(Math.max(x.getlHeight(), x.getrHeight()) + 1);
-
-
-                return x.getHeight();
+                if(keep>0) {
+                    x.setlHeight(height(x.getLeft(),keep-1));
+                    x.setrHeight(height(x.getRight(),keep-1));
+                    x.setHeight(Math.max(x.getlHeight() , x.getrHeight()) + 1);
+                    return x.getHeight();
+                }else{
+                    return x.getHeight();
+                }
             }
         }
+
+
 
         private void leftRotate(AVLNode<K, V> x) {
             AVLNode<K, V> y = x.getRight(); // set y
@@ -303,15 +310,18 @@ public class AVLTree<K extends Comparable<K>, V>  implements MyBinaryTree<K, V> 
         private void rebalance(AVLNode<K, V> node) {
 
             while (node != null) {
-                height(node);
+
+                height(node,2);
                 if (node.getlHeight() >= 2 + node.getrHeight()) {
-                    if (node.getLeft().getlHeight() >= node.getLeft().getrHeight()) {
+
+                    if (node.getLeft().getHeight() >= node.getLeft().getrHeight()) {
                         rightRotate(node);
                     } else {
                         leftRotate(node.getLeft());
                         rightRotate(node);
                     }
                 } else if (node.getlHeight()+2 <=  node.getrHeight()) {
+
                     if (node.getRight().getrHeight() >= node.getRight().getlHeight()) {
                         leftRotate(node);
                     } else {
@@ -325,5 +335,6 @@ public class AVLTree<K extends Comparable<K>, V>  implements MyBinaryTree<K, V> 
 
 
 
-    }
+
+}
 
