@@ -8,6 +8,8 @@ import Estructures.trees.Binary_tree;
 import Estructures.trees.RBTree;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class Pruebas_Estructuras {
@@ -204,6 +206,21 @@ class Pruebas_Estructuras {
         AVL_tree_t.delete(11);
         AVL_tree_t.delete(12);
         AVL_tree_t.delete(13);
+
+		AVL_tree_t.insert(5,1);
+		AVL_tree_t.insert(15,14);
+		AVL_tree_t.insert(3,1);
+		AVL_tree_t.insert(6,1);
+		AVL_tree_t.insert(7,1);
+		AVL_tree_t.insert(8,1);
+		AVL_tree_t.insert(9,1);
+		AVL_tree_t.insert(10,11);
+		AVL_tree_t.insert(11,12);
+		AVL_tree_t.insert(11,12);
+		AVL_tree_t.insert(11,12);
+		AVL_tree_t.insert(12,13);
+
+		System.out.println(Arrays.toString(AVL_tree_t.searchLowerOrEqualTo(15).toArray()));
 
         AVL_tree_t.insert(1,65);
 

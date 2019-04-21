@@ -217,7 +217,7 @@ public class BVC{
 
 		ArrayList<String> result = clasifier.searchLowerOrEqualTo(max);
 
-		String names[] = {result.get(0) , result.get(1) , result.get(2)};
+		String names[] = {result.get(result.size()-1) , result.get(result.size()-2) , result.get(result.size()-3)};
 
 		return names;
 	}
