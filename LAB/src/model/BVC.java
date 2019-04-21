@@ -71,8 +71,7 @@ public class BVC{
 
 		double max_value = 0;
 
-
-		for (int J =  st ; J<=fin ; J++){
+		for (int J =  fin ; J<=st ; J++){
 			if(rangeStates.get(J).getValue() > max_value){
 				max_value = rangeStates.get(J).getValue();
 			}
@@ -116,16 +115,16 @@ public class BVC{
 
 		ArrayList<State> rangeStates = curr_market.getStates();
 
-		double max_value = 0;
+		double min_value = rangeStates.get(fin).getValue();
 
 
-		for (int J =  st ; J<=fin ; J++){
-			if(rangeStates.get(J).getValue() > max_value){
-				max_value = rangeStates.get(J).getValue();
+		for (int J =  fin ; J<=st ; J++){
+			if(rangeStates.get(J).getValue() < min_value){
+				min_value = rangeStates.get(J).getValue();
 			}
 		}
 
-		return max_value;
+		return min_value;
 
 	}
 

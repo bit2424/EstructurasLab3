@@ -211,6 +211,7 @@ public class BVCcontroller implements Initializable {
     	selecPane.setVisible(true);
     	state =4;
     	stateLabel.setText("Consultar Precio Mas alto");
+    	highLowLabel.setText("alto");
     	refreshMarkets();
     }
     @FXML
@@ -219,6 +220,7 @@ public class BVCcontroller implements Initializable {
     	selecPane.setVisible(true);
     	state =5;
     	stateLabel.setText("Consultar Precio Mas bajo");
+    	highLowLabel.setText("bajo");
     	refreshMarkets();
     }
     @FXML
@@ -238,11 +240,9 @@ public class BVCcontroller implements Initializable {
         	double price;
         	if(state ==4) {
         		price=Main.getReception().searchHighPrice(listName.get(current), start, end);
-        		highLowLabel.setText("alto");
         	}
         	else {
         		price=Main.getReception().searchLowPrice(listName.get(current), start, end);
-        		highLowLabel.setText("bajo");
         	}
         	nameConsulPane.setText(listName.get(current));
         	priceLabel.setText(price+"");
@@ -280,17 +280,18 @@ public class BVCcontroller implements Initializable {
 		numberMarkets.setText("Cantidad divisas: " +Main.getReception().getMarketCurrencys().size()
     			+ "           Cantidad acciones: "+ Main.getReception().getMarketShares().size());
 		listMarkets();
+		refreshConsul();
+	}
+	private void refreshConsul() {
+		dateStart.setValue(null);
+		dateEnd.setValue(null);
+		timeStart.setText("");
+		timeEnd.setText("");
 	}
 	private void listMarkets() {
 		sharesCombo.getItems().clear();
 		sharesCombo.getItems().addAll(listName);
 	}
-//	private ArrayList<Market> getCurrent() {
-//		if(type==0)
-//			return Main.getReception().getMarketCurrencys();
-//		else
-//			return Main.getReception().getMarketShares();
-//	}
 	private void goConsulLow() throws IOException {
 		createMarket();
 		noVisiblePanes();
