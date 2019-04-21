@@ -1,5 +1,8 @@
 package model;
 
+import Estructures.trees.AVLNode;
+import Estructures.trees.AVLTree;
+import Estructures.trees.RBTree;
 import myException.marketNotFoundException;
 
 import java.io.IOException;
@@ -190,21 +193,33 @@ public class BVC{
 			return  overThePrice;
 	}
 
-	public String[] marketsMaximumGrowth(){
+	public String[] marketsMaximumGrowth(Date Start , Date Finish){
 
-		/*for (int I = 0; I < marketCurrencys.size(); I++) {
-			if(){
+		AVLTree<Double,String> clasifier = new AVLTree<>();
 
+		double max = Double.MIN_VALUE;
+
+		for (int I = 0; I < marketCurrencys.size(); I++) {
+			double key = (double)rangeMaximumGrowth(marketCurrencys.get(I),Start,Finish)[2];
+			clasifier.insert( key, marketCurrencys.get(I).getName());
+			if(key >max){
+				max = key;
 			}
 		}
 
 		for (int I = 0; I < marketShares.size(); I++) {
-			if()){
-
+			double key = (double)rangeMaximumGrowth(marketShares.get(I),Start,Finish)[2];
+			clasifier.insert(key, marketShares.get(I).getName());
+			if(key > max){
+				max = key;
 			}
-		}*/
+		}
 
-		return null;
+		ArrayList<String> result = clasifier.searchLowerOrEqualTo(max);
+
+		String names[] = {result.get(0) , result.get(1) , result.get(2)};
+
+		return names;
 	}
 
 
@@ -233,6 +248,29 @@ public class BVC{
 				}
 			}
 		}
+
+		ArrayList<State> temp = curr_market.getStates();
+
+		double slopes[] = new double[temp.size()];
+
+		for (int I = st+1; I<=fin ; I++){
+			slopes[I-1] = temp.get(I).getValue() - temp.get(I-1).getValue();
+		}
+
+		double result[] = FindMaximumSubarraySum(slopes,0,slopes.length-1);
+
+		//En la posición 0 esta la fecha inicial en la  1 la fecha final y en la 2 el crecimiento total
+
+		Object[] ref = {temp.get((int)result[0]).getDate() , temp.get((int)result[1]).getDate() , result[2]};
+
+		return ref;
+	}
+
+	public Object[] rangeMaximumGrowth(Market curr, Date Start , Date Finish ){
+		Market curr_market = curr;
+
+		int st = (int)curr_market.getTree_Date_Currency().search(Start)[1];
+		int fin = (int)curr_market.getTree_Date_Currency().search(Finish)[1];
 
 		ArrayList<State> temp = curr_market.getStates();
 
