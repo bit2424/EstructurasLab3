@@ -2,10 +2,9 @@ package model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class State implements Serializable {
+public class State  {
 	
 
-	private static final long serialVersionUID = 1L;
 	private Date date;
 	private double value;
 	public State(String data, double value) {

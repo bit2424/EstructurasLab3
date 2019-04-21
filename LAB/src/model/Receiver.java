@@ -15,15 +15,6 @@ public class Receiver implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Market createMarketString(String data) {
-		String dataSplit[] = data.split("\n");
-		String name = dataSplit[0].split(",")[0];
-    	ArrayList<State> states = new ArrayList<State>();
-		for (int i = 0; i < dataSplit.length&&!dataSplit[i].equals(""); i++) {
-			states.add(createState(dataSplit[i]));
-		}
-		return new Market(states, name);
-	}
 	public Market createMarketTxt(String address) throws IOException {
 		File file = new File(address);
     	FileReader fr = new FileReader(file);

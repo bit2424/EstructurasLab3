@@ -1,8 +1,13 @@
 package controller;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
@@ -12,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
@@ -35,8 +41,6 @@ public class BVCcontroller implements Initializable {
     @FXML
     private ComboBox<String> sharesCombo;
     @FXML
-    private ComboBox<String> currencysCombo;
-    @FXML
     private AnchorPane consulPane;
     @FXML
     private Label highLowLabel;
@@ -47,7 +51,15 @@ public class BVCcontroller implements Initializable {
     @FXML
     private Label priceLabel;
     @FXML
-    private Label dateConsulPane;
+    private DatePicker dateStart;
+    @FXML
+    private DatePicker dateEnd;
+    @FXML
+    private TextField timeStart;
+    @FXML
+    private TextField timeEnd;
+    @FXML
+    private TextField nameMarketAddPane;
     @FXML
     private Label stateLabel;
     @FXML
@@ -84,7 +96,8 @@ public class BVCcontroller implements Initializable {
     private LineChart<?, ?> graph;
     private int state;
     private int current=-1;
-    private int type;
+    private ArrayList<String> listName;
+    private ArrayList<String> listLink;
     
     @FXML
     void addGraph(ActionEvent event) {
@@ -98,33 +111,36 @@ public class BVCcontroller implements Initializable {
     }
     @FXML
     void addMarketAddPane(ActionEvent event) throws IOException {
-    	if(dataAreaText.getText().equals("")&&fileAddress.getText().equals("")) {
+    	if(!nameMarketAddPane.getText().equals("")) {
+    		if(dataAreaText.getText().equals("")&&fileAddress.getText().equals("")) {
+        		try {
+    				throw new completeDataException();
+    			} catch (completeDataException e) {
+    				JOptionPane.showMessageDialog(null,e.getMessage());
+    			}
+        	}else if(dataAreaText.getText().equals("")) {
+        		listName.add(nameMarketAddPane.getText());
+        		listLink.add(fileAddress.getText());
+        	}else {
+        		listName.add(nameMarketAddPane.getText());
+        		listLink.add(saveData(dataAreaText.getText(), nameMarketAddPane.getText()));
+        	}
+    	}else {
     		try {
 				throw new completeDataException();
 			} catch (completeDataException e) {
 				JOptionPane.showMessageDialog(null,e.getMessage());
 			}
-    	}else if(dataAreaText.getText().equals("")) {
-    		Main.getReception().createMarketTxt(fileAddress.getText());
-    	}else {
-    		Main.getReception().createMarketString(dataAreaText.getText());
     	}
     	dataAreaText.setText("");
     	fileAddress.setText("");
+    	nameMarketAddPane.setText("");
     	refreshMarkets();
     	noVisiblePanes();
     }
 	@FXML
     void clean(ActionEvent event) {
 
-    }
-    @FXML
-    void currencyAction(ActionEvent event) {
-    	sharesCombo.setDisable(true);
-    	if(currencysCombo.getSelectionModel().getSelectedIndex()>-1) {
-    		current = currencysCombo.getSelectionModel().getSelectedIndex();
-    		type=0;
-    	}
     }
     @FXML
     void deleteMarket(ActionEvent event) {
@@ -157,7 +173,7 @@ public class BVCcontroller implements Initializable {
     	refreshMarkets();
     }
     @FXML
-    void nextSelecPane(ActionEvent event) {
+    void nextSelecPane(ActionEvent event) throws IOException {
     	switch (state) {
 		case 2: goSetMarket();
 			break;
@@ -214,11 +230,35 @@ public class BVCcontroller implements Initializable {
     	refreshMarkets();
     }
     @FXML
+    void searchCosulPane(ActionEvent event) {
+    	if(dateStart.getValue()!=null&&dateEnd.getValue()!=null
+    			&& !timeStart.getText().equals("")&&!timeEnd.getText().equals("")) {
+    		Date start = convertionDate(dateStart.getValue()+"", timeStart.getText());
+        	Date end =  convertionDate(dateEnd.getValue()+"", timeEnd.getText());
+        	double price;
+        	if(state ==4) {
+        		price=Main.getReception().searchHighPrice(listName.get(current), start, end);
+        		highLowLabel.setText("alto");
+        	}
+        	else {
+        		price=Main.getReception().searchLowPrice(listName.get(current), start, end);
+        		highLowLabel.setText("bajo");
+        	}
+        	nameConsulPane.setText(listName.get(current));
+        	priceLabel.setText(price+"");
+    	}else {
+    		try {
+				throw new completeDataException();
+			} catch (completeDataException e) {
+				JOptionPane.showMessageDialog(null,e.getMessage());
+			}
+    	}
+    	
+    }
+    @FXML
     void sharesAction(ActionEvent event) {
-    	currencysCombo.setDisable(true);
     	if(sharesCombo.getSelectionModel().getSelectedIndex()>-1) {
     		current = sharesCombo.getSelectionModel().getSelectedIndex();
-    		type=1;
     	}
     }
     @FXML
@@ -226,10 +266,6 @@ public class BVCcontroller implements Initializable {
     	noVisiblePanes();
     	increasePane.setVisible(true);
     	state =8;
-    }
-    @FXML
-    void saveData(ActionEvent event) throws IOException {
-    	Main.serealization();
     }
     private void noVisiblePanes() {
     	addPane.setVisible(false);
@@ -244,44 +280,30 @@ public class BVCcontroller implements Initializable {
 		numberMarkets.setText("Cantidad divisas: " +Main.getReception().getMarketCurrencys().size()
     			+ "           Cantidad acciones: "+ Main.getReception().getMarketShares().size());
 		listMarkets();
-		sharesCombo.setDisable(false);
-		currencysCombo.setDisable(false);
 	}
 	private void listMarkets() {
 		sharesCombo.getItems().clear();
-		currencysCombo.getItems().clear();
-		if( Main.getReception().getMarketShares().size()!=0) {
-			ArrayList<String> a = new ArrayList<>();
-			for (int i = 0; i < Main.getReception().getMarketShares().size(); i++) {
-				a.add(Main.getReception().getMarketShares().get(i).getName());
-			}
-			sharesCombo.getItems().addAll(a);
-		}
-		if( Main.getReception().getMarketCurrencys().size()!=0) {
-			ArrayList<String> a = new ArrayList<>();
-			for (int i = 0; i < Main.getReception().getMarketCurrencys().size(); i++) {
-				a.add(Main.getReception().getMarketCurrencys().get(i).getName());
-			}
-			currencysCombo.getItems().addAll(a);
-		}
-		
+		sharesCombo.getItems().addAll(listName);
 	}
-	private ArrayList<Market> getCurrent() {
-		if(type==0)
-			return Main.getReception().getMarketCurrencys();
-		else
-			return Main.getReception().getMarketShares();
+//	private ArrayList<Market> getCurrent() {
+//		if(type==0)
+//			return Main.getReception().getMarketCurrencys();
+//		else
+//			return Main.getReception().getMarketShares();
+//	}
+	private void goConsulLow() throws IOException {
+		createMarket();
+		noVisiblePanes();
+		consulPane.setVisible(true);
 	}
-	private void goConsulLow() {
-		// TODO Auto-generated method stub
-		
-	}
-	private void goConsulHigh() {
-		// TODO Auto-generated method stub
-		
+	private void goConsulHigh() throws IOException {
+		createMarket();
+		noVisiblePanes();
+		consulPane.setVisible(true);
 	}
 	private void goDeleteMarket() {
-		getCurrent().remove(current);
+		listName.remove(current);
+		listLink.remove(current);
 		noVisiblePanes();
 		refreshMarkets();
 	}
@@ -297,10 +319,42 @@ public class BVCcontroller implements Initializable {
 		// TODO Auto-generated method stub
 		
 	}
+	private Date convertionDate(String string, String time) {
+		int year = Integer.parseInt(string.split("-")[0]); 
+		int month = Integer.parseInt(string.split("-")[1]);
+		int day = Integer.parseInt(string.split("-")[2]);
+		int hrs= Integer.parseInt(time.split(":")[0]); 
+		int mm= Integer.parseInt(time.split(":")[1]); 
+		return new Date(year, month, day, hrs, mm);
+	}
+	private ArrayList<String> listDataSet(){
+		String a[]= {"#US30","#USSPX500","BTCUSD","EURUSD","GBPCAD","USDJPY","WTI","XAUUSD"};
+		ArrayList<String> n = new ArrayList<>(Arrays.asList(a));
+		return n;
+	}
+	private ArrayList<String> linkDataSet(){
+		String a[]= {"./LAB/dataset/#US30 prices.txt","./LAB/dataset/#USSPX500 prices.txt","./LAB/dataset/BTCUSD prices.txt",
+				"./LAB/dataset/EURUSD prices.txt","./LAB/dataset/GBPCAD prices.txt","./LAB/dataset/USDJPY prices.txt","./LAB/dataset/WTI prices.txt",
+				"./LAB/dataset/XAUUSD prices.txt"};
+		ArrayList<String> n = new ArrayList<>(Arrays.asList(a));
+		return n;
+	}
+	private String saveData(String data, String name) throws IOException {
+		String link="./LAB/dataset/"+name+" prices";
+		File file =new File(link);
+		BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+		bw.write(data);
+		bw.close();
+		return link;
+	}
+	private void createMarket() throws IOException {
+		Main.getReception().createMarketTxt(listLink.get(current));
+	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		listName = listDataSet();
+		listLink = linkDataSet();
 		refreshMarkets();
-		
 	}
     
 }

@@ -7,9 +7,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Market implements Serializable {
+public class Market {
 
-	private static final long serialVersionUID = 1L;
 	private ArrayList<State> states;
 	private char type;
 	private String name;

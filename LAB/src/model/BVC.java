@@ -7,10 +7,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class BVC implements Serializable{
+public class BVC{
 
-	
-	private static final long serialVersionUID = 1L;
 	private ArrayList<Market> marketShares;
 	private ArrayList<Market> marketCurrencys;
 	private Receiver receiver;
@@ -27,11 +25,6 @@ public class BVC implements Serializable{
 		else
 			marketShares.add(market);
 	}
-
-	public void createMarketString(String data) {
-		addMarket(receiver.createMarketString(data));
-	}
-
 	public ArrayList<Market> getMarketShares() { return marketShares; }
 
 	public ArrayList<Market> getMarketCurrencys() {
