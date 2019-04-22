@@ -30,6 +30,10 @@ public class Main extends Application {
 		return reception;
 	}
 	
+	public static void setReception(BVC bvc) {
+		reception=bvc;
+	}
+	
 	
 	
 	public static void main(String[] args)  {

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +25,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import model.BVC;
 import model.Market;
 import myException.completeDataException;
 import view.Main;
@@ -65,8 +67,6 @@ public class BVCcontroller implements Initializable {
     @FXML
     private AnchorPane intervalPane;
     @FXML
-    private Label nameIntervalPane;
-    @FXML
     private Label startDateLabel;
     @FXML
     private Label endDateLabel;
@@ -95,7 +95,7 @@ public class BVCcontroller implements Initializable {
     @FXML
     private LineChart<?, ?> graph;
     private int state;
-    private int current=-1;
+    private int current;
     private ArrayList<String> listName;
     private ArrayList<String> listLink;
     
@@ -151,10 +151,14 @@ public class BVCcontroller implements Initializable {
     	refreshMarkets();
     }
     @FXML
-    void filterTypes(ActionEvent event) {
+    void filterTypes(ActionEvent event) throws IOException {
     	noVisiblePanes();
     	filterPane.setVisible(true);
+    	consulPane.setVisible(true);
     	state =6;
+    	highLowLabel.setText("Filtro");
+    	refreshMarkets();
+    	createallMarkets();
     }
     @FXML
     void goGraph(ActionEvent event) {
@@ -170,6 +174,7 @@ public class BVCcontroller implements Initializable {
     	selecPane.setVisible(true);
     	state =7;
     	stateLabel.setText("Rango de mayor crecimiento");
+    	highLowLabel.setText("Rango de mayor crecimiento");
     	refreshMarkets();
     }
     @FXML
@@ -202,16 +207,12 @@ public class BVCcontroller implements Initializable {
 
     }
     @FXML
-    void searchFilterPane(ActionEvent event) {
-
-    }
-    @FXML
     void searchPriceHigh(ActionEvent event) {
     	noVisiblePanes();
     	selecPane.setVisible(true);
     	state =4;
     	stateLabel.setText("Consultar Precio Mas alto");
-    	highLowLabel.setText("alto");
+    	highLowLabel.setText("Consultar precio mas alto");
     	refreshMarkets();
     }
     @FXML
@@ -220,7 +221,7 @@ public class BVCcontroller implements Initializable {
     	selecPane.setVisible(true);
     	state =5;
     	stateLabel.setText("Consultar Precio Mas bajo");
-    	highLowLabel.setText("bajo");
+    	highLowLabel.setText("Consultar precio mas bajo");
     	refreshMarkets();
     }
     @FXML
@@ -237,12 +238,34 @@ public class BVCcontroller implements Initializable {
     			&& !timeStart.getText().equals("")&&!timeEnd.getText().equals("")) {
     		Date start = convertionDate(dateStart.getValue()+"", timeStart.getText());
         	Date end =  convertionDate(dateEnd.getValue()+"", timeEnd.getText());
-        	double price;
+        	double price=0;
+        	Object[] data= new Object[3];
         	if(state ==4) {
         		price=Main.getReception().searchHighPrice(listName.get(current), start, end);
         	}
-        	else {
+        	else if(state==5){
         		price=Main.getReception().searchLowPrice(listName.get(current), start, end);
+        	}
+        	else if(state==7) {
+        		data=Main.getReception().rangeMaximumGrowth(listName.get(current), start, end);
+        		SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
+        		startDateLabel.setText(formateador.format((Date)data[0]));
+        		endDateLabel.setText(formateador.format((Date)data[1]));
+        		percentLabel.setText(data[2]+"");
+        	}
+        	else {
+        		if(!priceSearchTextField.getText().equals("")) {
+        			ArrayList<String> a = Main.getReception().searchAllMarketsOverPrice(start, end, Double.parseDouble(priceSearchTextField.getText()));
+        			System.out.println(a.size());
+        			ListMarkets.getItems().addAll(a);
+        			Main.setReception(new BVC());
+        		}
+//        		for (int i = 0; i <Main.getReception().getMarketCurrencys().size(); i++) {
+//					System.out.println(Main.getReception().getMarketCurrencys().get(i).getName());
+//				}
+//        		for (int i = 0; i <Main.getReception().getMarketShares().size(); i++) {
+//					System.out.println(Main.getReception().getMarketShares().get(i).getName());
+//				}
         	}
         	nameConsulPane.setText(listName.get(current));
         	priceLabel.setText(price+"");
@@ -316,8 +339,11 @@ public class BVCcontroller implements Initializable {
 		// TODO Auto-generated method stub
 		
 	}
-	private void goIntervalHigh() {
-		// TODO Auto-generated method stub
+	private void goIntervalHigh() throws IOException {
+		createMarket();
+		noVisiblePanes();
+		consulPane.setVisible(true);
+		intervalPane.setVisible(true);
 		
 	}
 	private Date convertionDate(String string, String time) {
@@ -350,6 +376,11 @@ public class BVCcontroller implements Initializable {
 	}
 	private void createMarket() throws IOException {
 		Main.getReception().createMarketTxt(listLink.get(current));
+	}
+	private void createallMarkets() throws IOException {
+		for (int i = 0; i < listLink.size(); i++) {
+			Main.getReception().createMarketTxt(listLink.get(i));
+		}
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
