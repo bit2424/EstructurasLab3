@@ -73,7 +73,6 @@ public class BVC{
 		ArrayList<State> rangeStates = curr_market.getStates();
 
 		double max_value = 0;
-		System.out.println(fin+" "+st);
 		for (int J =  st ; J<=fin ; J++){
 			if(rangeStates.get(J).getValue() > max_value){
 				max_value = rangeStates.get(J).getValue();
@@ -162,7 +161,6 @@ public class BVC{
 
 
 	public boolean searchOverPriceMarket(Market current, Date Start , Date Finish , double value){
-		System.out.println(current.getName());
 		Market curr_market = current;
 		ArrayList<Date> temp = new ArrayList<>();
 		if(curr_market.getType()=='#') {
@@ -181,13 +179,11 @@ public class BVC{
 
 	public ArrayList<String> searchAllMarketsOverPrice(Date Start , Date Finish ,double value){
 			ArrayList<String> overThePrice = new ArrayList<>();
-			System.out.println(  marketCurrencys.size());
 			for (int I = 0; I < marketCurrencys.size(); I++) {
 				if(searchOverPriceMarket(marketCurrencys.get(I),Start,Finish,value)){
 					overThePrice.add(marketCurrencys.get(I).getName());
 				}
 			}
-			System.out.println( marketShares.size());
 			for (int I = 0; I < marketShares.size(); I++) {
 				if(searchOverPriceMarket(marketShares.get(I),Start,Finish,value)){
 					overThePrice.add(marketShares.get(I).getName());

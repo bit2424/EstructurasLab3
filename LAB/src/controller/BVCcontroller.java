@@ -138,7 +138,7 @@ public class BVCcontroller implements Initializable {
     }
 	@FXML
     void clean(ActionEvent event) {
-		
+		System.out.println("");
     }
     @FXML
     void deleteMarket(ActionEvent event) {
@@ -254,16 +254,13 @@ public class BVCcontroller implements Initializable {
         	else if(state==6) {
         		if(!priceSearchTextField.getText().equals("")) {
         			ArrayList<String> a = Main.getReception().searchAllMarketsOverPrice(start, end, Double.parseDouble(priceSearchTextField.getText()));
-        			System.out.println(a.size());
         			ListMarkets.getItems().addAll(a);
-        			Main.setReception(new BVC());
         		}
         	}else {
         		String a[]= Main.getReception().marketsMaximumGrowth(start, end);
         		AnameIncreasePane.setText(a[0]);
         		BnameIncreasePane.setText(a[1]);
         		CnameIncreasePane.setText(a[2]);
-        		Main.setReception(new BVC());
         	}
         	nameConsulPane.setText(listName.get(current));
         	priceLabel.setText(price+"");
@@ -275,6 +272,7 @@ public class BVCcontroller implements Initializable {
 			}
     	}
     	
+    	
     }
     @FXML
     void sharesAction(ActionEvent event) {
@@ -284,6 +282,8 @@ public class BVCcontroller implements Initializable {
     }
     @FXML
     void topGreaterGrowth(ActionEvent event) throws IOException {
+    	highLowLabel.setText("Top de crecimiento de mercado");
+    	refreshMarkets();
     	noVisiblePanes();
     	consulPane.setVisible(true);
     	increasePane.setVisible(true);
@@ -300,10 +300,20 @@ public class BVCcontroller implements Initializable {
     	increasePane.setVisible(false);
     }
 	private void refreshMarkets() {
-		numberMarkets.setText("Cantidad divisas: " +Main.getReception().getMarketCurrencys().size()
-    			+ "           Cantidad acciones: "+ Main.getReception().getMarketShares().size());
+		numberMarkets.setText("Cantidad de mercados: " + listName.size());
 		listMarkets();
 		refreshConsul();
+		priceSearchTextField.setText("");
+		AnameIncreasePane.setText("");
+		BnameIncreasePane.setText("");
+		CnameIncreasePane.setText("");
+		nameConsulPane.setText("");
+		startDateLabel.setText("");
+		endDateLabel.setText("");
+		priceLabel.setText("");
+		percentLabel.setText("");
+		ListMarkets.getItems().clear();
+		Main.setReception(new BVC());
 	}
 	private void refreshConsul() {
 		dateStart.setValue(null);
@@ -330,10 +340,12 @@ public class BVCcontroller implements Initializable {
 		listLink.remove(current);
 		noVisiblePanes();
 		refreshMarkets();
+		current=0;
 	}
 	private void goSetMarket() {
 		goDeleteMarket();
 		addPane.setVisible(true);
+		current=0;
 	}
 	private void goGraphs() {
 		// TODO Auto-generated method stub
