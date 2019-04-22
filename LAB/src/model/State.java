@@ -30,8 +30,8 @@ public class State  {
 
 	private Date convertDate(String data) {
 		String q[]=data.split(" ");
-		int year = Integer.parseInt(q[1].split("/")[2]);
-		int month = Integer.parseInt(q[1].split("/")[1]);
+		int year = Integer.parseInt(q[1].split("/")[2])-1900;
+		int month = Integer.parseInt(q[1].split("/")[1])-1;
 		int date = Integer.parseInt(q[1].split("/")[0]);
 		int hrs = Integer.parseInt(q[2].split(":")[0]);
 		int min = Integer.parseInt(q[2].split(":")[1]);

@@ -221,7 +221,7 @@ public class BVC{
 
 		ArrayList<String> result = clasifier.searchLowerOrEqualTo(max);
 
-		String names[] = {result.get(result.size()-1) , result.get(result.size()-2) , result.get(result.size()-3	)};
+		String names[] = {result.get(result.size()-1) , result.get(result.size()-2) , result.get(result.size()-3)};
 
 		return names;
 	}
@@ -272,9 +272,15 @@ public class BVC{
 
 	public Object[] rangeMaximumGrowth(Market curr, Date Start , Date Finish ){
 		Market curr_market = curr;
-
-		int st = (int)curr_market.getTree_Date_Currency().search(Start)[1];
-		int fin = (int)curr_market.getTree_Date_Currency().search(Finish)[1];
+		int st;
+		int fin;
+		if(curr_market.getType()=='#') {
+			 st = (int)curr_market.getTree_Date_Currency().search(Start)[1];
+			fin = (int)curr_market.getTree_Date_Currency().search(Finish)[1];
+		}else {
+			st = (int)curr_market.getTree_Date_Shares().search(Start)[1];
+			fin = (int)curr_market.getTree_Date_Shares().search(Finish)[1];
+		}
 
 		ArrayList<State> temp = curr_market.getStates();
 

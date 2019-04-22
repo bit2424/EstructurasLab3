@@ -186,44 +186,34 @@
                   <ListView fx:id="ListMarkets" layoutX="161.0" layoutY="123.0" prefHeight="111.0" prefWidth="200.0" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="increasePane" layoutX="10.0" layoutY="64.0" prefHeight="448.0" prefWidth="524.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <AnchorPane fx:id="increasePane" layoutX="10.0" layoutY="64.0" prefHeight="277.0" prefWidth="524.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <Label layoutX="39.0" layoutY="32.0" prefHeight="38.0" prefWidth="344.0" text="Los tres mercados de mayor crecimiento">
+                  <Label layoutX="84.0" layoutY="21.0" prefHeight="38.0" prefWidth="104.0" text="1) Mercado:">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="84.0" layoutY="123.0" prefHeight="38.0" prefWidth="104.0" text="1) Mercado:">
+                  <Label fx:id="AnameIncreasePane" layoutX="197.0" layoutY="21.0" prefHeight="38.0" prefWidth="173.0" text="(Nombre mercado)">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="AnameIncreasePane" layoutX="197.0" layoutY="123.0" prefHeight="38.0" prefWidth="173.0" text="(Nombre mercado)">
+                  <Label layoutX="83.0" layoutY="70.0" prefHeight="38.0" prefWidth="104.0" text="2) Mercado:">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="83.0" layoutY="172.0" prefHeight="38.0" prefWidth="104.0" text="2) Mercado:">
+                  <Label fx:id="BnameIncreasePane" layoutX="196.0" layoutY="70.0" prefHeight="38.0" prefWidth="173.0" text="(Nombre mercado)">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="BnameIncreasePane" layoutX="196.0" layoutY="172.0" prefHeight="38.0" prefWidth="173.0" text="(Nombre mercado)">
+                  <Label layoutX="83.0" layoutY="121.0" prefHeight="38.0" prefWidth="104.0" text="3) Mercado:">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="83.0" layoutY="223.0" prefHeight="38.0" prefWidth="104.0" text="3) Mercado:">
-                     <font>
-                        <Font name="System Bold Italic" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="CnameIncreasePane" layoutX="196.0" layoutY="223.0" prefHeight="38.0" prefWidth="173.0" text="(Nombre mercado)">
-                     <font>
-                        <Font name="System Bold Italic" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="typeMarketIncreasePane" layoutX="121.0" layoutY="62.0" prefHeight="38.0" prefWidth="180.0" text="de (acciones/divisas)">
+                  <Label fx:id="CnameIncreasePane" layoutX="196.0" layoutY="121.0" prefHeight="38.0" prefWidth="173.0" text="(Nombre mercado)">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
