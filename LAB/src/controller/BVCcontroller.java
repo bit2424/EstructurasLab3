@@ -1,10 +1,8 @@
 package controller;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -15,7 +13,10 @@ import javax.swing.JOptionPane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -93,7 +94,11 @@ public class BVCcontroller implements Initializable {
     @FXML
     private Label typeMarketGraphPane;
     @FXML
-    private LineChart<?, ?> graph;
+    private LineChart<String, Double> graph;
+	@FXML
+	private CategoryAxis xAxix;
+	@FXML
+	private NumberAxis yAxis;
     private int state;
     private int current=-1;
     private ArrayList<String> listName;
@@ -101,6 +106,8 @@ public class BVCcontroller implements Initializable {
     
     @FXML
     void addGraph(ActionEvent event) {
+        selecPane.setVisible(true);
+        graphPane.setVisible(false);
 
     }
     @FXML
@@ -158,11 +165,7 @@ public class BVCcontroller implements Initializable {
     }
     @FXML
     void goGraph(ActionEvent event) {
-    	noVisiblePanes();
-    	selecPane.setVisible(true);
-    	state =9;
-    	stateLabel.setText("Graficar mercado");
-    	refreshMarkets();
+    	goGraphs();
     }
     @FXML
     void intervalHigh(ActionEvent event) {
@@ -185,8 +188,10 @@ public class BVCcontroller implements Initializable {
 		break;
 		case 7: goIntervalHigh();
 		break;
-		case 9: goGraphs();
-		break;
+		case 9:
+		    goGraphs();
+		    draw();
+		    break;
 		default:
 			break;
 		}
@@ -313,30 +318,80 @@ public class BVCcontroller implements Initializable {
 		addPane.setVisible(true);
 	}
 	private void goGraphs() {
-		// TODO Auto-generated method stub
-		
+        noVisiblePanes();
+        graphPane.setVisible(true);
+        xAxix.setLabel("Fechas");
+        yAxis.setLabel("Precios");
+        state =9;
+        refreshMarkets();
 	}
+
+	private void draw() throws IOException {
+
+        XYChart.Series<String, Double> market1 = new XYChart.Series<>();
+		market1.setName(listName.get(current));
+
+		File file = new File(listLink.get(current));
+		FileReader fr = new FileReader(file);
+		BufferedReader br = new BufferedReader(fr);
+
+		String line = br.readLine();
+		String[] array = line.split(",");
+		String time = array[1];
+		String[] array2 = time.split(" ");
+		String date = array2[1];
+		String hour = array2[2];
+
+		LocalDateTime marketDate = convertionDate2(date, hour);
+
+		String price = array[2];
+		price.trim();
+
+		br.close();
+		fr.close();
+
+		market1.getData().add(new XYChart.Data<>(marketDate.getMonth().toString(), Double.parseDouble(price)));
+
+        /*market1.getData().add(new XYChart.Data<>("Febrero", 5));
+        market1.getData().add(new XYChart.Data<>("Marzo", 15));
+        market1.getData().add(new XYChart.Data<>("Abril", 0));*/
+
+		graph.getData().addAll(market1);
+    }
+
 	private void goIntervalHigh() {
 		// TODO Auto-generated method stub
 		
 	}
+
 	private Date convertionDate(String string, String time) {
-		int year = Integer.parseInt(string.split("-")[0]); 
+		int year = Integer.parseInt(string.split("-")[0]);
 		int month = Integer.parseInt(string.split("-")[1]);
 		int day = Integer.parseInt(string.split("-")[2]);
 		int hrs= Integer.parseInt(time.split(":")[0]); 
 		int mm= Integer.parseInt(time.split(":")[1]); 
 		return new Date(year, month, day, hrs, mm);
 	}
+
+	private LocalDateTime convertionDate2(String date, String hour){
+
+		int year = Integer.parseInt(date.split("/")[2]);
+		int month = Integer.parseInt(date.split("/")[1]);
+		int day = Integer.parseInt(date.split("/")[0]);
+		int hr = Integer.parseInt(hour.split(":")[0]);
+		int minutes = Integer.parseInt(hour.split(":")[1]);
+		return LocalDateTime.of(year, month, day, hr, minutes);
+	}
+
 	private ArrayList<String> listDataSet(){
 		String a[]= {"#US30","#USSPX500","BTCUSD","EURUSD","GBPCAD","USDJPY","WTI","XAUUSD"};
 		ArrayList<String> n = new ArrayList<>(Arrays.asList(a));
 		return n;
 	}
 	private ArrayList<String> linkDataSet(){
-		String a[]= {"./LAB/dataset/#US30 prices.txt","./LAB/dataset/#USSPX500 prices.txt","./LAB/dataset/BTCUSD prices.txt",
-				"./LAB/dataset/EURUSD prices.txt","./LAB/dataset/GBPCAD prices.txt","./LAB/dataset/USDJPY prices.txt","./LAB/dataset/WTI prices.txt",
-				"./LAB/dataset/XAUUSD prices.txt"};
+		String a[]= {"../LAB/dataset/#US30 prices.txt","../LAB/dataset/#USSPX500 prices.txt","../LAB/dataset/BTCUSD prices.txt",
+				"../LAB/dataset/EURUSD prices.txt","../LAB/dataset/GBPCAD prices.txt","../LAB/dataset/USDJPY prices.txt","../LAB/dataset/WTI prices.txt",
+				"../LAB/dataset/XAUUSD prices.txt"};
 		ArrayList<String> n = new ArrayList<>(Arrays.asList(a));
 		return n;
 	}
