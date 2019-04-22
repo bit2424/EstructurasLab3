@@ -92,7 +92,6 @@ public class BVCcontroller implements Initializable {
     @FXML
     private AnchorPane graphPane;
     @FXML
-<<<<<<< HEAD
     private Label typeMarketGraphPane;
     @FXML
     private LineChart<String, Double> graph;
@@ -100,9 +99,6 @@ public class BVCcontroller implements Initializable {
 	private CategoryAxis xAxix;
 	@FXML
 	private NumberAxis yAxis;
-=======
-    private LineChart<?, ?> graph;
->>>>>>> b0a0c5600b7d4807e5d832ed3d53acfa214ceb1c
     private int state;
     private int current;
     private ArrayList<String> listName;
@@ -366,7 +362,6 @@ public class BVCcontroller implements Initializable {
         state =9;
         refreshMarkets();
 	}
-<<<<<<< HEAD
 
 	private void draw() throws IOException {
 
@@ -401,26 +396,16 @@ public class BVCcontroller implements Initializable {
 		graph.getData().addAll(market1);
     }
 
-	private void goIntervalHigh() {
-		// TODO Auto-generated method stub
-=======
 	private void goIntervalHigh() throws IOException {
 		createMarket();
 		noVisiblePanes();
 		consulPane.setVisible(true);
 		intervalPane.setVisible(true);
->>>>>>> b0a0c5600b7d4807e5d832ed3d53acfa214ceb1c
-		
 	}
 
 	private Date convertionDate(String string, String time) {
-<<<<<<< HEAD
-		int year = Integer.parseInt(string.split("-")[0]);
-		int month = Integer.parseInt(string.split("-")[1]);
-=======
 		int year = Integer.parseInt(string.split("-")[0])-1900; 
 		int month = Integer.parseInt(string.split("-")[1])-1;
->>>>>>> b0a0c5600b7d4807e5d832ed3d53acfa214ceb1c
 		int day = Integer.parseInt(string.split("-")[2]);
 		int hrs= Integer.parseInt(time.split(":")[0]); 
 		int mm= Integer.parseInt(time.split(":")[1]); 
