@@ -73,8 +73,7 @@ public class BVC{
 		ArrayList<State> rangeStates = curr_market.getStates();
 
 		double max_value = 0;
-
-		for (int J =  fin ; J<=st ; J++){
+		for (int J =  st ; J<=fin ; J++){
 			if(rangeStates.get(J).getValue() > max_value){
 				max_value = rangeStates.get(J).getValue();
 			}
@@ -121,7 +120,7 @@ public class BVC{
 		double min_value = rangeStates.get(fin).getValue();
 
 
-		for (int J =  fin ; J<=st ; J++){
+		for (int J =  st ; J<=fin ; J++){
 			if(rangeStates.get(J).getValue() < min_value){
 				min_value = rangeStates.get(J).getValue();
 			}
@@ -163,8 +162,11 @@ public class BVC{
 
 	public boolean searchOverPriceMarket(Market current, Date Start , Date Finish , double value){
 		Market curr_market = current;
-
-		ArrayList<Date> temp = curr_market.getTree_Value_Currency().searchBiggerThan(value);
+		ArrayList<Date> temp = new ArrayList<>();
+		if(curr_market.getType()=='#') {
+			temp = curr_market.getTree_Value_Currency().searchBiggerThan(value);
+		}else
+			temp = curr_market.getTree_Value_Shares().searchBiggerThan(value);
 
 		for (int I = 0;I<temp.size(); I++){
 			if (temp.get(I).compareTo(Start)>=0 && temp.get(I).compareTo(Finish) <= 0){
@@ -177,13 +179,11 @@ public class BVC{
 
 	public ArrayList<String> searchAllMarketsOverPrice(Date Start , Date Finish ,double value){
 			ArrayList<String> overThePrice = new ArrayList<>();
-
 			for (int I = 0; I < marketCurrencys.size(); I++) {
 				if(searchOverPriceMarket(marketCurrencys.get(I),Start,Finish,value)){
 					overThePrice.add(marketCurrencys.get(I).getName());
 				}
 			}
-
 			for (int I = 0; I < marketShares.size(); I++) {
 				if(searchOverPriceMarket(marketShares.get(I),Start,Finish,value)){
 					overThePrice.add(marketShares.get(I).getName());
@@ -268,9 +268,15 @@ public class BVC{
 
 	public Object[] rangeMaximumGrowth(Market curr, Date Start , Date Finish ){
 		Market curr_market = curr;
-
-		int st = (int)curr_market.getTree_Date_Currency().search(Start)[1];
-		int fin = (int)curr_market.getTree_Date_Currency().search(Finish)[1];
+		int st;
+		int fin;
+		if(curr_market.getType()=='#') {
+			 st = (int)curr_market.getTree_Date_Currency().search(Start)[1];
+			fin = (int)curr_market.getTree_Date_Currency().search(Finish)[1];
+		}else {
+			st = (int)curr_market.getTree_Date_Shares().search(Start)[1];
+			fin = (int)curr_market.getTree_Date_Shares().search(Finish)[1];
+		}
 
 		ArrayList<State> temp = curr_market.getStates();
 
@@ -301,9 +307,9 @@ public class BVC{
 
 			double[] solutionCross = FindMaximumCrossSubarray(slopes,start,mid,end);
 
-			if(solutionLeft[3] >= solutionRight[3] && solutionLeft[3] >= solutionCross[3] ){
+			if(solutionLeft[2] >= solutionRight[2] && solutionLeft[2] >= solutionCross[2] ){
 				solution = solutionLeft;
-			}else if(solutionLeft[3] <= solutionRight[3] && solutionRight[3] >= solutionCross[3]){
+			}else if(solutionLeft[2] <= solutionRight[2] && solutionRight[2] >= solutionCross[2]){
 				solution = solutionRight;
 			}else{
 				solution = solutionCross;

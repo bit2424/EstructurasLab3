@@ -1,6 +1,7 @@
 package controller;
 import java.io.*;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import model.BVC;
 import model.Market;
 import myException.completeDataException;
 import view.Main;
@@ -66,8 +68,6 @@ public class BVCcontroller implements Initializable {
     @FXML
     private AnchorPane intervalPane;
     @FXML
-    private Label nameIntervalPane;
-    @FXML
     private Label startDateLabel;
     @FXML
     private Label endDateLabel;
@@ -92,6 +92,7 @@ public class BVCcontroller implements Initializable {
     @FXML
     private AnchorPane graphPane;
     @FXML
+<<<<<<< HEAD
     private Label typeMarketGraphPane;
     @FXML
     private LineChart<String, Double> graph;
@@ -99,8 +100,11 @@ public class BVCcontroller implements Initializable {
 	private CategoryAxis xAxix;
 	@FXML
 	private NumberAxis yAxis;
+=======
+    private LineChart<?, ?> graph;
+>>>>>>> b0a0c5600b7d4807e5d832ed3d53acfa214ceb1c
     private int state;
-    private int current=-1;
+    private int current;
     private ArrayList<String> listName;
     private ArrayList<String> listLink;
     
@@ -147,7 +151,7 @@ public class BVCcontroller implements Initializable {
     }
 	@FXML
     void clean(ActionEvent event) {
-
+		System.out.println("");
     }
     @FXML
     void deleteMarket(ActionEvent event) {
@@ -158,10 +162,14 @@ public class BVCcontroller implements Initializable {
     	refreshMarkets();
     }
     @FXML
-    void filterTypes(ActionEvent event) {
+    void filterTypes(ActionEvent event) throws IOException {
     	noVisiblePanes();
     	filterPane.setVisible(true);
+    	consulPane.setVisible(true);
     	state =6;
+    	highLowLabel.setText("Filtro");
+    	refreshMarkets();
+    	createallMarkets();
     }
     @FXML
     void goGraph(ActionEvent event) {
@@ -173,6 +181,7 @@ public class BVCcontroller implements Initializable {
     	selecPane.setVisible(true);
     	state =7;
     	stateLabel.setText("Rango de mayor crecimiento");
+    	highLowLabel.setText("Rango de mayor crecimiento");
     	refreshMarkets();
     }
     @FXML
@@ -207,16 +216,12 @@ public class BVCcontroller implements Initializable {
 
     }
     @FXML
-    void searchFilterPane(ActionEvent event) {
-
-    }
-    @FXML
     void searchPriceHigh(ActionEvent event) {
     	noVisiblePanes();
     	selecPane.setVisible(true);
     	state =4;
     	stateLabel.setText("Consultar Precio Mas alto");
-    	highLowLabel.setText("alto");
+    	highLowLabel.setText("Consultar precio mas alto");
     	refreshMarkets();
     }
     @FXML
@@ -225,7 +230,7 @@ public class BVCcontroller implements Initializable {
     	selecPane.setVisible(true);
     	state =5;
     	stateLabel.setText("Consultar Precio Mas bajo");
-    	highLowLabel.setText("bajo");
+    	highLowLabel.setText("Consultar precio mas bajo");
     	refreshMarkets();
     }
     @FXML
@@ -242,12 +247,31 @@ public class BVCcontroller implements Initializable {
     			&& !timeStart.getText().equals("")&&!timeEnd.getText().equals("")) {
     		Date start = convertionDate(dateStart.getValue()+"", timeStart.getText());
         	Date end =  convertionDate(dateEnd.getValue()+"", timeEnd.getText());
-        	double price;
+        	double price=0;
+        	Object[] data= new Object[3];
         	if(state ==4) {
         		price=Main.getReception().searchHighPrice(listName.get(current), start, end);
         	}
-        	else {
+        	else if(state==5){
         		price=Main.getReception().searchLowPrice(listName.get(current), start, end);
+        	}
+        	else if(state==7) {
+        		data=Main.getReception().rangeMaximumGrowth(listName.get(current), start, end);
+        		SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        		startDateLabel.setText(formateador.format((Date)data[0]));
+        		endDateLabel.setText(formateador.format((Date)data[1]));
+        		percentLabel.setText(data[2]+"");
+        	}
+        	else if(state==6) {
+        		if(!priceSearchTextField.getText().equals("")) {
+        			ArrayList<String> a = Main.getReception().searchAllMarketsOverPrice(start, end, Double.parseDouble(priceSearchTextField.getText()));
+        			ListMarkets.getItems().addAll(a);
+        		}
+        	}else {
+        		String a[]= Main.getReception().marketsMaximumGrowth(start, end);
+        		AnameIncreasePane.setText(a[0]);
+        		BnameIncreasePane.setText(a[1]);
+        		CnameIncreasePane.setText(a[2]);
         	}
         	nameConsulPane.setText(listName.get(current));
         	priceLabel.setText(price+"");
@@ -259,6 +283,7 @@ public class BVCcontroller implements Initializable {
 			}
     	}
     	
+    	
     }
     @FXML
     void sharesAction(ActionEvent event) {
@@ -267,10 +292,14 @@ public class BVCcontroller implements Initializable {
     	}
     }
     @FXML
-    void topGreaterGrowth(ActionEvent event) {
+    void topGreaterGrowth(ActionEvent event) throws IOException {
+    	highLowLabel.setText("Top de crecimiento de mercado");
+    	refreshMarkets();
     	noVisiblePanes();
+    	consulPane.setVisible(true);
     	increasePane.setVisible(true);
     	state =8;
+    	createallMarkets();
     }
     private void noVisiblePanes() {
     	addPane.setVisible(false);
@@ -282,10 +311,20 @@ public class BVCcontroller implements Initializable {
     	increasePane.setVisible(false);
     }
 	private void refreshMarkets() {
-		numberMarkets.setText("Cantidad divisas: " +Main.getReception().getMarketCurrencys().size()
-    			+ "           Cantidad acciones: "+ Main.getReception().getMarketShares().size());
+		numberMarkets.setText("Cantidad de mercados: " + listName.size());
 		listMarkets();
 		refreshConsul();
+		priceSearchTextField.setText("");
+		AnameIncreasePane.setText("");
+		BnameIncreasePane.setText("");
+		CnameIncreasePane.setText("");
+		nameConsulPane.setText("");
+		startDateLabel.setText("");
+		endDateLabel.setText("");
+		priceLabel.setText("");
+		percentLabel.setText("");
+		ListMarkets.getItems().clear();
+		Main.setReception(new BVC());
 	}
 	private void refreshConsul() {
 		dateStart.setValue(null);
@@ -312,10 +351,12 @@ public class BVCcontroller implements Initializable {
 		listLink.remove(current);
 		noVisiblePanes();
 		refreshMarkets();
+		current=0;
 	}
 	private void goSetMarket() {
 		goDeleteMarket();
 		addPane.setVisible(true);
+		current=0;
 	}
 	private void goGraphs() {
         noVisiblePanes();
@@ -325,6 +366,7 @@ public class BVCcontroller implements Initializable {
         state =9;
         refreshMarkets();
 	}
+<<<<<<< HEAD
 
 	private void draw() throws IOException {
 
@@ -361,12 +403,24 @@ public class BVCcontroller implements Initializable {
 
 	private void goIntervalHigh() {
 		// TODO Auto-generated method stub
+=======
+	private void goIntervalHigh() throws IOException {
+		createMarket();
+		noVisiblePanes();
+		consulPane.setVisible(true);
+		intervalPane.setVisible(true);
+>>>>>>> b0a0c5600b7d4807e5d832ed3d53acfa214ceb1c
 		
 	}
 
 	private Date convertionDate(String string, String time) {
+<<<<<<< HEAD
 		int year = Integer.parseInt(string.split("-")[0]);
 		int month = Integer.parseInt(string.split("-")[1]);
+=======
+		int year = Integer.parseInt(string.split("-")[0])-1900; 
+		int month = Integer.parseInt(string.split("-")[1])-1;
+>>>>>>> b0a0c5600b7d4807e5d832ed3d53acfa214ceb1c
 		int day = Integer.parseInt(string.split("-")[2]);
 		int hrs= Integer.parseInt(time.split(":")[0]); 
 		int mm= Integer.parseInt(time.split(":")[1]); 
@@ -405,6 +459,11 @@ public class BVCcontroller implements Initializable {
 	}
 	private void createMarket() throws IOException {
 		Main.getReception().createMarketTxt(listLink.get(current));
+	}
+	private void createallMarkets() throws IOException {
+		for (int i = 0; i < listLink.size(); i++) {
+			Main.getReception().createMarketTxt(listLink.get(i));
+		}
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
