@@ -91,8 +91,6 @@ public class BVCcontroller implements Initializable {
     @FXML
     private AnchorPane graphPane;
     @FXML
-    private Label typeMarketGraphPane;
-    @FXML
     private LineChart<?, ?> graph;
     private int state;
     private int current;
@@ -140,7 +138,7 @@ public class BVCcontroller implements Initializable {
     }
 	@FXML
     void clean(ActionEvent event) {
-
+		System.out.println("");
     }
     @FXML
     void deleteMarket(ActionEvent event) {
@@ -248,24 +246,21 @@ public class BVCcontroller implements Initializable {
         	}
         	else if(state==7) {
         		data=Main.getReception().rangeMaximumGrowth(listName.get(current), start, end);
-        		SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
+        		SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         		startDateLabel.setText(formateador.format((Date)data[0]));
         		endDateLabel.setText(formateador.format((Date)data[1]));
         		percentLabel.setText(data[2]+"");
         	}
-        	else {
+        	else if(state==6) {
         		if(!priceSearchTextField.getText().equals("")) {
         			ArrayList<String> a = Main.getReception().searchAllMarketsOverPrice(start, end, Double.parseDouble(priceSearchTextField.getText()));
-        			System.out.println(a.size());
         			ListMarkets.getItems().addAll(a);
-        			Main.setReception(new BVC());
         		}
-//        		for (int i = 0; i <Main.getReception().getMarketCurrencys().size(); i++) {
-//					System.out.println(Main.getReception().getMarketCurrencys().get(i).getName());
-//				}
-//        		for (int i = 0; i <Main.getReception().getMarketShares().size(); i++) {
-//					System.out.println(Main.getReception().getMarketShares().get(i).getName());
-//				}
+        	}else {
+        		String a[]= Main.getReception().marketsMaximumGrowth(start, end);
+        		AnameIncreasePane.setText(a[0]);
+        		BnameIncreasePane.setText(a[1]);
+        		CnameIncreasePane.setText(a[2]);
         	}
         	nameConsulPane.setText(listName.get(current));
         	priceLabel.setText(price+"");
@@ -277,6 +272,7 @@ public class BVCcontroller implements Initializable {
 			}
     	}
     	
+    	
     }
     @FXML
     void sharesAction(ActionEvent event) {
@@ -285,10 +281,14 @@ public class BVCcontroller implements Initializable {
     	}
     }
     @FXML
-    void topGreaterGrowth(ActionEvent event) {
+    void topGreaterGrowth(ActionEvent event) throws IOException {
+    	highLowLabel.setText("Top de crecimiento de mercado");
+    	refreshMarkets();
     	noVisiblePanes();
+    	consulPane.setVisible(true);
     	increasePane.setVisible(true);
     	state =8;
+    	createallMarkets();
     }
     private void noVisiblePanes() {
     	addPane.setVisible(false);
@@ -300,10 +300,20 @@ public class BVCcontroller implements Initializable {
     	increasePane.setVisible(false);
     }
 	private void refreshMarkets() {
-		numberMarkets.setText("Cantidad divisas: " +Main.getReception().getMarketCurrencys().size()
-    			+ "           Cantidad acciones: "+ Main.getReception().getMarketShares().size());
+		numberMarkets.setText("Cantidad de mercados: " + listName.size());
 		listMarkets();
 		refreshConsul();
+		priceSearchTextField.setText("");
+		AnameIncreasePane.setText("");
+		BnameIncreasePane.setText("");
+		CnameIncreasePane.setText("");
+		nameConsulPane.setText("");
+		startDateLabel.setText("");
+		endDateLabel.setText("");
+		priceLabel.setText("");
+		percentLabel.setText("");
+		ListMarkets.getItems().clear();
+		Main.setReception(new BVC());
 	}
 	private void refreshConsul() {
 		dateStart.setValue(null);
@@ -330,10 +340,12 @@ public class BVCcontroller implements Initializable {
 		listLink.remove(current);
 		noVisiblePanes();
 		refreshMarkets();
+		current=0;
 	}
 	private void goSetMarket() {
 		goDeleteMarket();
 		addPane.setVisible(true);
+		current=0;
 	}
 	private void goGraphs() {
 		// TODO Auto-generated method stub
@@ -347,8 +359,8 @@ public class BVCcontroller implements Initializable {
 		
 	}
 	private Date convertionDate(String string, String time) {
-		int year = Integer.parseInt(string.split("-")[0]); 
-		int month = Integer.parseInt(string.split("-")[1]);
+		int year = Integer.parseInt(string.split("-")[0])-1900; 
+		int month = Integer.parseInt(string.split("-")[1])-1;
 		int day = Integer.parseInt(string.split("-")[2]);
 		int hrs= Integer.parseInt(time.split(":")[0]); 
 		int mm= Integer.parseInt(time.split(":")[1]); 
