@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -380,6 +381,10 @@ public class BVCcontroller implements Initializable {
 		double averagePrice = 0.0;
 		int range = 0;
 		int previousDay = 20;
+		int count = 1;
+		int initialDay = 0;
+		int finalDay = 0;
+		int previousMonth = 0;
 
 		while((line = br.readLine()) != null){
 			String[] array = line.split(",");
@@ -391,17 +396,26 @@ public class BVCcontroller implements Initializable {
 			int day = Integer.parseInt(date.split("/")[0]);
 			String price = array[2];
 			price.trim();
-
-			if(day == previousDay){
+			if(day != previousDay){
+				count++;
+			}
+			if(count == 1){
+				finalDay = day;
 				sum += Double.parseDouble(price);
-				previousDay = day;
 				range++;
+			}
+			if(count < 6 ){
+
+				initialDay = previousDay;
+				previousDay = day;
+				previousMonth = month;
 			}
 			else{
 				averagePrice = sum / range;
-				market1.getData().add(new XYChart.Data<>(getMonthNameInSpanish(month) + " " + previousDay, averagePrice));
+				market1.getData().add(new XYChart.Data<>(getMonthNameInSpanish(previousMonth) + " " + initialDay + " - " + finalDay, averagePrice));
 				sum = 0;
 				range = 0;
+				count = 1;
 				sum += Double.parseDouble(price);
 				previousDay = day;
 				range++;
@@ -410,7 +424,7 @@ public class BVCcontroller implements Initializable {
 
 		br.close();
 		fr.close();
-
+		FXCollections.reverse(market1.getData());
 		graph.getData().addAll(market1);
     }
 
