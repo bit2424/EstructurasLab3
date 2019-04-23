@@ -363,6 +363,8 @@ public class BVCcontroller implements Initializable {
         refreshMarkets();
 	}
 
+
+
 	private void draw() throws IOException {
 
         XYChart.Series<String, Double> market1 = new XYChart.Series<>();
@@ -372,29 +374,53 @@ public class BVCcontroller implements Initializable {
 		FileReader fr = new FileReader(file);
 		BufferedReader br = new BufferedReader(fr);
 
-		String line = br.readLine();
-		String[] array = line.split(",");
-		String time = array[1];
-		String[] array2 = time.split(" ");
-		String date = array2[1];
-		String hour = array2[2];
+		String line = "";
 
-		LocalDateTime marketDate = convertionDate2(date, hour);
+		double sum = 0.0;
+		double averagePrice = 0.0;
+		int range = 0;
+		int previousDay = 20;
 
-		String price = array[2];
-		price.trim();
+		while((line = br.readLine()) != null){
+			String[] array = line.split(",");
+			String time = array[1];
+			String[] array2 = time.split(" ");
+			String date = array2[1];
+
+			int month = Integer.parseInt(date.split("/")[1]);
+			int day = Integer.parseInt(date.split("/")[0]);
+			String price = array[2];
+			price.trim();
+
+			if(day == previousDay){
+				sum += Double.parseDouble(price);
+				previousDay = day;
+				range++;
+			}
+			else{
+				averagePrice = sum / range;
+				market1.getData().add(new XYChart.Data<>(getMonthNameInSpanish(month) + " " + previousDay, averagePrice));
+				sum = 0;
+				range = 0;
+				sum += Double.parseDouble(price);
+				previousDay = day;
+				range++;
+			}
+		}
 
 		br.close();
 		fr.close();
 
-		market1.getData().add(new XYChart.Data<>(marketDate.getMonth().toString(), Double.parseDouble(price)));
-
-        /*market1.getData().add(new XYChart.Data<>("Febrero", 5));
-        market1.getData().add(new XYChart.Data<>("Marzo", 15));
-        market1.getData().add(new XYChart.Data<>("Abril", 0));*/
-
 		graph.getData().addAll(market1);
     }
+
+    public String getMonthNameInSpanish(int month){
+    	switch(month){
+			case 2: return "Febrero";
+			case 3: return "Marzo";
+			default: return "";
+		}
+	}
 
 	private void goIntervalHigh() throws IOException {
 		createMarket();
@@ -412,8 +438,9 @@ public class BVCcontroller implements Initializable {
 		return new Date(year, month, day, hrs, mm);
 	}
 
-	private LocalDateTime convertionDate2(String date, String hour){
 
+
+	private LocalDateTime convertionDate2(String date, String hour){
 		int year = Integer.parseInt(date.split("/")[2]);
 		int month = Integer.parseInt(date.split("/")[1]);
 		int day = Integer.parseInt(date.split("/")[0]);
