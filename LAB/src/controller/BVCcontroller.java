@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -359,20 +360,19 @@ public class BVCcontroller implements Initializable {
         noVisiblePanes();
         graphPane.setVisible(true);
         xAxix.setLabel("Fechas");
+		ObservableList<String> categories = FXCollections.observableArrayList("Febrero 8 - 10", "Febrero 11 - 15", "Febrero 16 - 20", "Febrero 21 - 25", "Febrero 26 - 30",
+			"Marzo 1 - 5", "Marzo 6 - 10", "Marzo 11 - 15", "Marzo 16 - 20");
+        xAxix.setCategories(categories);
         yAxis.setLabel("Precios");
 		yAxis.setAutoRanging(false);
 		yAxis.setLowerBound(0);
 		yAxis.setUpperBound(26000);
 		yAxis.setTickUnit(100);
-
 		state =9;
         refreshMarkets();
 	}
 
-
-
 	private void draw() throws IOException {
-
         XYChart.Series<String, Double> market1 = new XYChart.Series<>();
 		market1.setName(listName.get(current));
 
@@ -396,24 +396,23 @@ public class BVCcontroller implements Initializable {
 			String time = array[1];
 			String[] array2 = time.split(" ");
 			String date = array2[1];
-
 			int month = Integer.parseInt(date.split("/")[1]);
 			int day = Integer.parseInt(date.split("/")[0]);
 			String price = array[2];
 			price.trim();
+
 			if(day != previousDay){
 				count++;
 			}
 			if(count == 1){
 				finalDay = day;
-
+				previousMonth = month;
 			}
 			if(count < 6 ){
 				sum += Double.parseDouble(price);
 				range++;
 				initialDay = previousDay;
 				previousDay = day;
-				previousMonth = month;
 			}
 			else{
 				averagePrice = sum / range;
@@ -426,14 +425,14 @@ public class BVCcontroller implements Initializable {
 				range++;
 			}
 		}
-
+		market1.getData().add(new XYChart.Data<>(getMonthNameInSpanish(previousMonth) + " " + initialDay + " - " + finalDay, averagePrice));
 		br.close();
 		fr.close();
 		FXCollections.reverse(market1.getData());
 		graph.getData().addAll(market1);
     }
 
-    public String getMonthNameInSpanish(int month){
+    private String getMonthNameInSpanish(int month){
     	switch(month){
 			case 2: return "Febrero";
 			case 3: return "Marzo";
