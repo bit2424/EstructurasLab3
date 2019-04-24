@@ -360,7 +360,12 @@ public class BVCcontroller implements Initializable {
         graphPane.setVisible(true);
         xAxix.setLabel("Fechas");
         yAxis.setLabel("Precios");
-        state =9;
+		yAxis.setAutoRanging(false);
+		yAxis.setLowerBound(0);
+		yAxis.setUpperBound(26000);
+		yAxis.setTickUnit(100);
+
+		state =9;
         refreshMarkets();
 	}
 
@@ -401,11 +406,11 @@ public class BVCcontroller implements Initializable {
 			}
 			if(count == 1){
 				finalDay = day;
-				sum += Double.parseDouble(price);
-				range++;
+
 			}
 			if(count < 6 ){
-
+				sum += Double.parseDouble(price);
+				range++;
 				initialDay = previousDay;
 				previousDay = day;
 				previousMonth = month;

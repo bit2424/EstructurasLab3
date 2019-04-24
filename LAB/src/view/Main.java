@@ -19,7 +19,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			SplitPane root = (SplitPane) FXMLLoader.load(getClass().getResource("BVC.fxml"));
-			Scene scene = new Scene(root,741,504);
+			Scene scene = new Scene(root,1000,800);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {
