@@ -30,6 +30,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import model.BVC;
 import model.Market;
+import myException.ThreeMarketsInGraphException;
 import myException.completeDataException;
 import view.Main;
 
@@ -108,9 +109,16 @@ public class BVCcontroller implements Initializable {
     
     @FXML
     void addGraph(ActionEvent event) {
-        selecPane.setVisible(true);
-        graphPane.setVisible(false);
-
+    	try{
+			if(graph.getData().size() == 3){
+				throw new ThreeMarketsInGraphException();
+			}
+			selecPane.setVisible(true);
+			graphPane.setVisible(false);
+		}
+    	catch(ThreeMarketsInGraphException e){
+    		JOptionPane.showMessageDialog(null, e.getMessage());
+		}
     }
     @FXML
     void addMarket(ActionEvent event) {
