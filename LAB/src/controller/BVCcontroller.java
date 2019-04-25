@@ -428,9 +428,9 @@ public class BVCcontroller implements Initializable {
 		return n;
 	}
 	private ArrayList<String> linkDataSet(){
-		String a[]= {"../LAB/dataset/#US30 prices.txt","../LAB/dataset/#USSPX500 prices.txt","../LAB/dataset/BTCUSD prices.txt",
-				"../LAB/dataset/EURUSD prices.txt","../LAB/dataset/GBPCAD prices.txt","../LAB/dataset/USDJPY prices.txt","../LAB/dataset/WTI prices.txt",
-				"../LAB/dataset/XAUUSD prices.txt"};
+		String a[]= {"./LAB/dataset/#US30 prices.txt","./LAB/dataset/#USSPX500 prices.txt","./LAB/dataset/BTCUSD prices.txt",
+				"./LAB/dataset/EURUSD prices.txt","./LAB/dataset/GBPCAD prices.txt","./LAB/dataset/USDJPY prices.txt","./LAB/dataset/WTI prices.txt",
+				"./LAB/dataset/XAUUSD prices.txt"};
 		ArrayList<String> n = new ArrayList<>(Arrays.asList(a));
 		return n;
 	}
