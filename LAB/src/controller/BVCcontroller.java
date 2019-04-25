@@ -11,6 +11,8 @@ import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,6 +30,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import model.BVC;
 import model.Market;
+import myException.ThreeMarketsInGraphException;
 import myException.completeDataException;
 import view.Main;
 
@@ -106,9 +109,16 @@ public class BVCcontroller implements Initializable {
     
     @FXML
     void addGraph(ActionEvent event) {
-        selecPane.setVisible(true);
-        graphPane.setVisible(false);
-
+    	try{
+			if(graph.getData().size() == 3){
+				throw new ThreeMarketsInGraphException();
+			}
+			selecPane.setVisible(true);
+			graphPane.setVisible(false);
+		}
+    	catch(ThreeMarketsInGraphException e){
+    		JOptionPane.showMessageDialog(null, e.getMessage());
+		}
     }
     @FXML
     void addMarket(ActionEvent event) {
@@ -358,13 +368,19 @@ public class BVCcontroller implements Initializable {
         noVisiblePanes();
         graphPane.setVisible(true);
         xAxix.setLabel("Fechas");
+		ObservableList<String> categories = FXCollections.observableArrayList("Febrero 8 - 10", "Febrero 11 - 15", "Febrero 16 - 20", "Febrero 21 - 25", "Febrero 26 - 30",
+			"Marzo 1 - 5", "Marzo 6 - 10", "Marzo 11 - 15", "Marzo 16 - 20");
+        xAxix.setCategories(categories);
         yAxis.setLabel("Precios");
-        state =9;
+		yAxis.setAutoRanging(false);
+		yAxis.setLowerBound(0);
+		yAxis.setUpperBound(26000);
+		yAxis.setTickUnit(100);
+		state =9;
         refreshMarkets();
 	}
 
 	private void draw() throws IOException {
-
         XYChart.Series<String, Double> market1 = new XYChart.Series<>();
 		market1.setName(listName.get(current));
 
@@ -372,29 +388,65 @@ public class BVCcontroller implements Initializable {
 		FileReader fr = new FileReader(file);
 		BufferedReader br = new BufferedReader(fr);
 
-		String line = br.readLine();
-		String[] array = line.split(",");
-		String time = array[1];
-		String[] array2 = time.split(" ");
-		String date = array2[1];
-		String hour = array2[2];
+		String line = "";
 
-		LocalDateTime marketDate = convertionDate2(date, hour);
+		double sum = 0.0;
+		double averagePrice = 0.0;
+		int range = 0;
+		int previousDay = 20;
+		int count = 1;
+		int initialDay = 0;
+		int finalDay = 0;
+		int previousMonth = 0;
 
-		String price = array[2];
-		price.trim();
+		while((line = br.readLine()) != null){
+			String[] array = line.split(",");
+			String time = array[1];
+			String[] array2 = time.split(" ");
+			String date = array2[1];
+			int month = Integer.parseInt(date.split("/")[1]);
+			int day = Integer.parseInt(date.split("/")[0]);
+			String price = array[2];
+			price.trim();
 
+			if(day != previousDay){
+				count++;
+			}
+			if(count == 1){
+				finalDay = day;
+				previousMonth = month;
+			}
+			if(count < 6 ){
+				sum += Double.parseDouble(price);
+				range++;
+				initialDay = previousDay;
+				previousDay = day;
+			}
+			else{
+				averagePrice = sum / range;
+				market1.getData().add(new XYChart.Data<>(getMonthNameInSpanish(previousMonth) + " " + initialDay + " - " + finalDay, averagePrice));
+				sum = 0;
+				range = 0;
+				count = 1;
+				sum += Double.parseDouble(price);
+				previousDay = day;
+				range++;
+			}
+		}
+		market1.getData().add(new XYChart.Data<>(getMonthNameInSpanish(previousMonth) + " " + initialDay + " - " + finalDay, averagePrice));
 		br.close();
 		fr.close();
-
-		market1.getData().add(new XYChart.Data<>(marketDate.getMonth().toString(), Double.parseDouble(price)));
-
-        /*market1.getData().add(new XYChart.Data<>("Febrero", 5));
-        market1.getData().add(new XYChart.Data<>("Marzo", 15));
-        market1.getData().add(new XYChart.Data<>("Abril", 0));*/
-
+		FXCollections.reverse(market1.getData());
 		graph.getData().addAll(market1);
     }
+
+    private String getMonthNameInSpanish(int month){
+    	switch(month){
+			case 2: return "Febrero";
+			case 3: return "Marzo";
+			default: return "";
+		}
+	}
 
 	private void goIntervalHigh() throws IOException {
 		createMarket();
@@ -412,8 +464,9 @@ public class BVCcontroller implements Initializable {
 		return new Date(year, month, day, hrs, mm);
 	}
 
-	private LocalDateTime convertionDate2(String date, String hour){
 
+
+	private LocalDateTime convertionDate2(String date, String hour){
 		int year = Integer.parseInt(date.split("/")[2]);
 		int month = Integer.parseInt(date.split("/")[1]);
 		int day = Integer.parseInt(date.split("/")[0]);
