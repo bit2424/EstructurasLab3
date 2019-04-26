@@ -326,10 +326,10 @@ public class BVC{
 		double max_left = 0;
 
 
-		for(int I = mid; I>=end ; I--){
+		for(int I = end; I>=mid ; I--){
 			sum += slopes[I];
 
-			if(sum > left_sum){
+			if(sum >= left_sum){
 				left_sum = sum;
 				max_left = I;
 			}
@@ -340,9 +340,9 @@ public class BVC{
 		sum = 0;
 		double max_right = 0;
 
-		for(int I = mid; I<= start ; I++ ){
+		for(int I = start; I<=  mid; I++ ){
 			sum += slopes[I];
-			if(sum > right_sum ){
+			if(sum >= right_sum ){
 				right_sum = sum;
 				max_right = I;
 			}
