@@ -264,8 +264,8 @@ public class BVCcontroller implements Initializable {
         	else if(state==7) {
         		data=Main.getReception().rangeMaximumGrowth(listName.get(current), start, end);
         		SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        		startDateLabel.setText(formateador.format((Date)data[0]));
-        		endDateLabel.setText(formateador.format((Date)data[1]));
+        		startDateLabel.setText(formateador.format((Date)data[1]));
+        		endDateLabel.setText(formateador.format((Date)data[0]));
         		percentLabel.setText(data[2]+"");
         	}
         	else if(state==6) {
@@ -481,10 +481,13 @@ public class BVCcontroller implements Initializable {
 		return n;
 	}
 	private ArrayList<String> linkDataSet(){
-		String a[]= {"./LAB/dataset/#US30 prices.txt","./LAB/dataset/#USSPX500 prices.txt","./LAB/dataset/BTCUSD prices.txt",
+		String a1[]= {"./LAB/dataset/#US30 prices.txt","./LAB/dataset/#USSPX500 prices.txt","./LAB/dataset/BTCUSD prices.txt",
 				"./LAB/dataset/EURUSD prices.txt","./LAB/dataset/GBPCAD prices.txt","./LAB/dataset/USDJPY prices.txt","./LAB/dataset/WTI prices.txt",
 				"./LAB/dataset/XAUUSD prices.txt"};
-		ArrayList<String> n = new ArrayList<>(Arrays.asList(a));
+		String a2[]= {"../LAB/dataset/#US30 prices.txt","../LAB/dataset/#USSPX500 prices.txt","../LAB/dataset/BTCUSD prices.txt",
+				"../LAB/dataset/EURUSD prices.txt","../LAB/dataset/GBPCAD prices.txt","../LAB/dataset/USDJPY prices.txt","../LAB/dataset/WTI prices.txt",
+				"../LAB/dataset/XAUUSD prices.txt"};
+		ArrayList<String> n = new ArrayList<>(Arrays.asList(a1));
 		return n;
 	}
 	private String saveData(String data, String name) throws IOException {

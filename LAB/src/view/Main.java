@@ -14,7 +14,7 @@ import javafx.scene.control.SplitPane;
 public class Main extends Application {
 	private static BVC reception;
 	
-	
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
