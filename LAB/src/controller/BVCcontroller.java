@@ -480,16 +480,27 @@ public class BVCcontroller implements Initializable {
 		ArrayList<String> n = new ArrayList<>(Arrays.asList(a));
 		return n;
 	}
+
+
+
 	private ArrayList<String> linkDataSet(){
 		String a1[]= {"./LAB/dataset/#US30 prices.txt","./LAB/dataset/#USSPX500 prices.txt","./LAB/dataset/BTCUSD prices.txt",
 				"./LAB/dataset/EURUSD prices.txt","./LAB/dataset/GBPCAD prices.txt","./LAB/dataset/USDJPY prices.txt","./LAB/dataset/WTI prices.txt",
 				"./LAB/dataset/XAUUSD prices.txt"};
-		String a2[]= {"../LAB/dataset/#US30 prices.txt","../LAB/dataset/#USSPX500 prices.txt","../LAB/dataset/BTCUSD prices.txt",
-				"../LAB/dataset/EURUSD prices.txt","../LAB/dataset/GBPCAD prices.txt","../LAB/dataset/USDJPY prices.txt","../LAB/dataset/WTI prices.txt",
-				"../LAB/dataset/XAUUSD prices.txt"};
+
 		ArrayList<String> n = new ArrayList<>(Arrays.asList(a1));
 		return n;
 	}
+
+	private ArrayList<String> linkDataSet2(){
+		String a2[]= {"../LAB/dataset/#US30 prices.txt","../LAB/dataset/#USSPX500 prices.txt","../LAB/dataset/BTCUSD prices.txt",
+				"../LAB/dataset/EURUSD prices.txt","../LAB/dataset/GBPCAD prices.txt","../LAB/dataset/USDJPY prices.txt","../LAB/dataset/WTI prices.txt",
+				"../LAB/dataset/XAUUSD prices.txt"};
+
+		ArrayList<String> n = new ArrayList<>(Arrays.asList(a2));
+		return n;
+	}
+
 	private String saveData(String data, String name) throws IOException {
 		String link="./LAB/dataset/"+name+" prices";
 		File file =new File(link);
@@ -502,9 +513,18 @@ public class BVCcontroller implements Initializable {
 		Main.getReception().createMarketTxt(listLink.get(current));
 	}
 	private void createallMarkets() throws IOException {
-		for (int i = 0; i < listLink.size(); i++) {
-			Main.getReception().createMarketTxt(listLink.get(i));
+    	try {
+			for (int i = 0; i < listLink.size(); i++) {
+				Main.getReception().createMarketTxt(listLink.get(i));
+			}
+
+		}catch (Exception e){
+    		listLink = linkDataSet2();
+			for (int i = 0; i < listLink.size(); i++) {
+				Main.getReception().createMarketTxt(listLink.get(i));
+			}
 		}
+
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
