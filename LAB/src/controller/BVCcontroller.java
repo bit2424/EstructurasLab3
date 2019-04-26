@@ -510,7 +510,14 @@ public class BVCcontroller implements Initializable {
 		return link;
 	}
 	private void createMarket() throws IOException {
-		Main.getReception().createMarketTxt(listLink.get(current));
+		try {
+
+			Main.getReception().createMarketTxt(listLink.get(current));
+		}catch (Exception e){
+			listLink = linkDataSet2();
+			Main.getReception().createMarketTxt(listLink.get(current));
+
+		}
 	}
 	private void createallMarkets() throws IOException {
     	try {

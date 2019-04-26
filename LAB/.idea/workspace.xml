@@ -1,7 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ba4c4f0e-1117-492f-aede-4b1b0a8f3adf" name="Default Changelist" comment="" />
+    <list default="true" id="ba4c4f0e-1117-492f-aede-4b1b0a8f3adf" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/out/production/LAB/META-INF/LAB.kotlin_module" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/N_tree.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/N_tree.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/N_treeExample.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/N_treeExample.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/Pruebas_Estructuras.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/Pruebas_Estructuras.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/Read_Write_file.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/Read_Write_file.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/HashMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/HashMap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/HashMapSuma.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/HashMapSuma.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/Heap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/Heap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/MyHashMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/MyHashMap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/MyHeap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/MyHeap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/MyLists.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/MyLists.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/MyPriorityQueue.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/MyPriorityQueue.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/MyQueue.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/MyQueue.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/MyStack.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/MyStack.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/Node.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/NodoHash.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/NodoHash.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/PriorityQueue.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/PriorityQueue.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/Queue.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/Queue.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/Stack.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/linear_Structures/Stack.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/trees/AVLNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/trees/AVLNode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/trees/AVLTree.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/trees/AVLTree.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/trees/Binary_tree.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/trees/Binary_tree.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/trees/MyBinaryTree.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/trees/MyBinaryTree.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/trees/MyRBTree.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/trees/MyRBTree.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/trees/NodeBinaryTree.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/trees/NodeBinaryTree.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/trees/RBNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/trees/RBNode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Estructures/trees/RBTree.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Estructures/trees/RBTree.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/Tests/Requiriments_Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/Tests/Requiriments_Test.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/controller/BVCcontroller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/controller/BVCcontroller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/model/Market.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/model/Market.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/model/Receiver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/model/Receiver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/model/State.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/model/State.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/myException/ThreeMarketsInGraphException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/myException/ThreeMarketsInGraphException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/myException/completeDataException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/myException/completeDataException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/myException/marketNotFoundException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/myException/marketNotFoundException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/sample/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/sample/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LAB/sample/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LAB/sample/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/BVCcontroller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/BVCcontroller.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,11 +54,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Estructures/trees/AVLTree.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+            <state relative-caret-position="200">
+              <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+              <folding>
+                <element signature="e#428#429#0" expanded="true" />
+                <element signature="e#494#495#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/view/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-156">
+              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/controller/BVCcontroller.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="519" column="9" lean-forward="true" selection-start-line="519" selection-start-column="9" selection-end-line="519" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -52,7 +114,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="676" />
     <option name="width" value="697" />
     <option name="height" value="775" />
@@ -62,6 +124,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -78,26 +141,18 @@
               <item name="LAB" type="b2602c69:ProjectViewProjectNode" />
               <item name="LAB" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Estructures" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="LAB" type="b2602c69:ProjectViewProjectNode" />
               <item name="LAB" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Estructures" type="462c0819:PsiDirectoryNode" />
-              <item name="trees" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="LAB" type="b2602c69:ProjectViewProjectNode" />
-              <item name="LAB" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -164,12 +219,13 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49932706" weight="0.22560203" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49932706" visible="true" weight="0.22541603" />
       <window_info id="Designer" order="1" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info active="true" id="Structure" order="3" sideWeight="0.50067294" visible="true" weight="0.24714829" />
+      <window_info id="Structure" order="3" sideWeight="0.50067294" weight="0.25113463" />
       <window_info id="Image Layers" order="4" />
       <window_info id="UI Designer" order="5" />
       <window_info id="Capture Tool" order="6" />
@@ -253,15 +309,8 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/view/BVC.fxml">
-      <provider selected="true" editor-type-id="text-editor" />
       <provider editor-type-id="JavaFX-Scene-Builder" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/BVCcontroller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="579">
-          <caret line="536" selection-start-line="536" selection-end-line="536" />
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/Receiver.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -277,13 +326,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="20" column="52" selection-start-line="20" selection-start-column="52" selection-end-line="20" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Estructures/trees/RBTree.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
@@ -293,8 +335,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Estructures/trees/AVLTree.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        <state relative-caret-position="200">
+          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+          <folding>
+            <element signature="e#428#429#0" expanded="true" />
+            <element signature="e#494#495#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-156">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controller/BVCcontroller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="519" column="9" lean-forward="true" selection-start-line="519" selection-start-column="9" selection-end-line="519" selection-end-column="9" />
         </state>
       </provider>
     </entry>
